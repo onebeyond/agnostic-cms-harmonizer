@@ -4,11 +4,19 @@
   "description": "Library to manage the communication with any CMS agnostic to the user",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prebuild": "rimraf ./build",
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "start": "node build/index.js"
   },
   "keywords": [
     "cms"
   ],
   "author": "Íñigo Marquínez Prado",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
 }
