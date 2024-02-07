@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "Library to manage the communication with any CMS agnostic to the user",
   "main": "index.js",
+  "keywords": [
+    "cms"
+  ],
+  "author": "Íñigo Marquínez Prado",
+  "license": "MIT",
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
   "scripts": {
     "prebuild": "rimraf ./build",
     "build": "tsc",
@@ -10,15 +18,12 @@
     "start": "node build/index.js",
     "prepare": "is-ci || husky"
   },
-  "keywords": [
-    "cms"
-  ],
-  "author": "Íñigo Marquínez Prado",
-  "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^18.6.0",
     "@commitlint/config-conventional": "^18.6.0",
     "husky": "^9.0.10",
+    "lint-staged": "^15.2.2",
+    "prettier": "3.2.5",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
