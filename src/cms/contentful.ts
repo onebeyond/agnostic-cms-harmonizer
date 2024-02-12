@@ -1,13 +1,21 @@
 import {
+  ContentfulClientApi,
   CreateClientParams as ContentfulClientParams,
   createClient,
 } from 'contentful';
 
 import { AgnosticCMSHarmonizerClient } from '..';
-import { CmsClientName } from '../@types/client';
 
 export class Contentful extends AgnosticCMSHarmonizerClient {
+  private client!: ContentfulClientApi<undefined>;
+
   constructor(clientParams: ContentfulClientParams) {
-    super(CmsClientName.contentful, createClient, clientParams);
+    super(clientParams);
+  }
+
+  async initialize(): Promise<void> {
+    this.client = await this.agnosticCmsInitialize(async () =>
+      createClient(this.clientParams),
+    );
   }
 }

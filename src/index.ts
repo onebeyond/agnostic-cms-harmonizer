@@ -1,36 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import {
-  ClientParams,
-  CmsClientInstance,
-  CmsClientName,
-} from './@types/client';
+import { ClientParams, CmsClientInstance } from './@types/client';
 
 export class AgnosticCMSHarmonizerClient {
-  private cmsClientName!: CmsClientName;
-  private clientParams!: ClientParams;
-  private clientInstance!: CmsClientInstance;
-  private createClientFunction!: Function;
-  private getCmsSpace!: Function;
+  protected clientParams!: ClientParams;
+  protected clientInstance!: CmsClientInstance;
 
-  constructor(
-    cmsClientName: CmsClientName,
-    createClientFunction: Function,
-    clientParams: ClientParams,
-  ) {
-    this.cmsClientName = cmsClientName;
+  constructor(clientParams: ClientParams) {
     this.clientParams = clientParams;
-    this.createClientFunction = createClientFunction;
   }
 
-  async initialize(): Promise<void> {
-    this.clientInstance = await this.createClientFunction(this.clientParams);
-    if (this.cmsClientName === CmsClientName.contentful) {
-      this.getCmsSpace = this.clientInstance.getEntries;
+  // Agnostics
+
+  protected async agnosticCmsInitialize(handler: Function): Promise<any> {
+    try {
+      return await handler();
+    } catch (error) {
+      throw new Error(`Failed to initialize cms client\n${error}`);
     }
   }
 
-  async getSpace(name: string): Promise<any> {
-    return this.getCmsSpace(name);
-  }
+  // async agnosticGetEntries(clientMethod, params): Promise<any> {
+  //   try {
+  //   } catch (error) {
+  //     throw new Error(`Error obtaining cms entries: ${JSON.stringify(params)}`);
+  //   }
+  // }
+
+  // Non agnostics (CMS particulars)
+  protected async initialize(): Promise<void> {}
 }

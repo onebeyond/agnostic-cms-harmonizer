@@ -16,6 +16,9 @@
     "build": "tsc",
     "dev": "ts-node src/index.ts",
     "start": "node build/index.js",
+    "test": "npx jest",
+    "test:ci": "npm run test -- --ci --verbose false",
+    "test:watch": "npm run test -- --watchAll",
     "prepare": "is-ci || husky"
   },
   "devDependencies": {
@@ -33,6 +36,7 @@
     "lint-staged": "^15.2.2",
     "prettier": "3.2.5",
     "rimraf": "^5.0.5",
+    "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
