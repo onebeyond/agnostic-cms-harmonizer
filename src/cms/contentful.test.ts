@@ -18,6 +18,8 @@ describe('contentful', () => {
       expect(Object.getOwnPropertyNames(Contentful.prototype)).toEqual([
         'constructor',
         'initialize',
+        'getClientInstance',
+        'getSpace',
       ]);
 
       const spyAgnosticCmsInitialize = jest.spyOn(

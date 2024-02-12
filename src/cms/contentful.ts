@@ -1,21 +1,28 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  ContentfulClientApi,
   CreateClientParams as ContentfulClientParams,
   createClient,
+  ContentfulClientApi,
 } from 'contentful';
 
-import { AgnosticCMSHarmonizerClient } from '..';
+import { AbstractAgnosticCMSHarmonizerClient } from '../index.abstract';
 
-export class Contentful extends AgnosticCMSHarmonizerClient {
-  private client!: ContentfulClientApi<undefined>;
-
+export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
   constructor(clientParams: ContentfulClientParams) {
     super(clientParams);
   }
 
   async initialize(): Promise<void> {
-    this.client = await this.agnosticCmsInitialize(async () =>
+    this.clientInstance = await this.agnosticCmsInitialize(async () =>
       createClient(this.clientParams),
     );
+  }
+
+  getClientInstance(): ContentfulClientApi<undefined> {
+    return this.clientInstance as ContentfulClientApi<undefined>;
+  }
+
+  async getSpace(): Promise<any> {
+    await this.getClientInstance();
   }
 }

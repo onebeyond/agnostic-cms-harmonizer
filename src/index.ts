@@ -10,8 +10,6 @@ export class AgnosticCMSHarmonizerClient {
     this.clientParams = clientParams;
   }
 
-  // Agnostics
-
   protected async agnosticCmsInitialize(handler: Function): Promise<any> {
     try {
       return await handler();
@@ -20,13 +18,14 @@ export class AgnosticCMSHarmonizerClient {
     }
   }
 
-  // async agnosticGetEntries(clientMethod, params): Promise<any> {
-  //   try {
-  //   } catch (error) {
-  //     throw new Error(`Error obtaining cms entries: ${JSON.stringify(params)}`);
-  //   }
-  // }
-
-  // Non agnostics (CMS particulars)
-  protected async initialize(): Promise<void> {}
+  protected execParser(handler: Function, data: any): Promise<any> {
+    try {
+      if (!data) {
+        throw new Error('No data provided for parsing');
+      }
+      return handler(data);
+    } catch (error) {
+      throw new Error(`Error parsing the data:\n${error}`);
+    }
+  }
 }
