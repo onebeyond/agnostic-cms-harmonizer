@@ -12,17 +12,17 @@ export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
     super(clientParams);
   }
 
-  async initialize(): Promise<void> {
+  public async initialize(): Promise<void> {
     this.clientInstance = await this.agnosticCmsInitialize(async () =>
       createClient(this.clientParams),
     );
   }
 
-  getClientInstance(): ContentfulClientApi<undefined> {
+  protected getClientInstance(): ContentfulClientApi<undefined> {
     return this.clientInstance as ContentfulClientApi<undefined>;
   }
 
-  async getSpace(): Promise<any> {
+  public async getSpace(): Promise<any> {
     await this.getClientInstance();
   }
 }

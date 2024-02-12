@@ -4,7 +4,7 @@ import { CmsClientInstance } from './@types/client';
 import { AgnosticCMSHarmonizerClient } from '.';
 
 export abstract class AbstractAgnosticCMSHarmonizerClient extends AgnosticCMSHarmonizerClient {
-  abstract initialize(): Promise<void>;
-  abstract getSpace(): Promise<any>;
-  abstract getClientInstance(): CmsClientInstance;
+  public abstract initialize(): Promise<void>;
+  protected abstract getClientInstance(): CmsClientInstance;
+  public abstract getSpace(): Promise<any>;
 }
