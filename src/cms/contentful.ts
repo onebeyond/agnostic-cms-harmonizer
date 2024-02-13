@@ -22,7 +22,10 @@ export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
     return this.clientInstance as ContentfulClientApi<undefined>;
   }
 
-  public async getSpace(): Promise<any> {
-    await this.getClientInstance();
+  public async getEntry(entryId: string) {
+    return await this.getEntryHarmonized(
+      () => this.getClientInstance().getEntry(entryId),
+      ({ fields }: { fields: any }) => ({ data: fields }),
+    );
   }
 }

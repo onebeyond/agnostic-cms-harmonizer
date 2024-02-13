@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`contentful should not fail retrieve content 1`] = `
+{
+  "data": {
+    "boolean": true,
+  },
+}
+`;

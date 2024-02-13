@@ -18,6 +18,18 @@ export class AgnosticCMSHarmonizerClient {
     }
   }
 
+  protected async getEntryHarmonized(
+    getEntryHandler: Function,
+    parsHandler: Function,
+  ): Promise<any> {
+    try {
+      const data = await getEntryHandler();
+      return parsHandler(data);
+    } catch (error) {
+      throw new Error(`Error obtaining entry:\n${error}`);
+    }
+  }
+
   protected execParser(handler: Function, data: any): Promise<any> {
     try {
       if (!data) {

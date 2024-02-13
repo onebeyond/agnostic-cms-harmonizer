@@ -1,0 +1,21 @@
+{
+  "spaceId": "ik845af5x553",
+  "environmentId": "master",
+  "exportDir": "./__tests__/exports/contentful",
+  "saveFile": true,
+  "contentFile": "agnostic-cms-harmonizer_space.json",
+  "includeDrafts": false,
+  "includeArchived": false,
+  "skipContentModel": false,
+  "skipContent": false,
+  "skipRoles": false,
+  "skipWebhooks": false,
+  "contentOnly": false,
+  "queryEntries": ["content_type=agnosticCmsHarmonizer"],
+  "downloadAssets": false,
+  "host": "api.contentful.com",
+  "rawProxy": false,
+  "maxAllowedLimit": 1000,
+  "errorLogFile": "/tmp/error.log",
+  "useVerboseRenderer": false
+}

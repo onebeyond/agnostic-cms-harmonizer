@@ -19,7 +19,7 @@ describe('contentful', () => {
         'constructor',
         'initialize',
         'getClientInstance',
-        'getSpace',
+        'getEntry',
       ]);
 
       const spyAgnosticCmsInitialize = jest.spyOn(
