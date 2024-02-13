@@ -19,6 +19,8 @@
     "test": "npx jest",
     "test:ci": "npm run test -- --ci --verbose false",
     "test:watch": "npm run test -- --watchAll",
+    "test:e2e": "npm run test -- --config __tests__/e2e/jest.e2e-config.js",
+    "test:e2e:watch": "npm run test -- --config __tests__/e2e/jest.e2e-config.js --watchAll",
     "prepare": "is-ci || husky"
   },
   "devDependencies": {
@@ -34,6 +36,7 @@
     "husky": "^9.0.10",
     "jest": "^29.7.0",
     "lint-staged": "^15.2.2",
+    "node-notifier": "^10.0.1",
     "prettier": "3.2.5",
     "rimraf": "^5.0.5",
     "ts-jest": "^29.1.2",
