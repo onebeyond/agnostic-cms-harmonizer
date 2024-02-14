@@ -16,7 +16,9 @@
     "build": "tsc",
     "dev": "ts-node src/index.ts",
     "start": "node build/index.js",
-    "prepare": "is-ci || husky"
+    "prepare": "is-ci || husky",
+    "docs:build": "npx typedoc",
+    "docs:serve": "PORT=4000 npx serve docs"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.6.0",
@@ -31,7 +33,9 @@
     "lint-staged": "^15.2.2",
     "prettier": "3.2.5",
     "rimraf": "^5.0.5",
+    "serve": "^14.2.1",
     "ts-node": "^10.9.2",
+    "typedoc": "^0.25.8",
     "typescript": "^5.3.3"
   },
   "dependencies": {
