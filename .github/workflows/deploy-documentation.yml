@@ -1,0 +1,59 @@
+name: Deploy documentation
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+  deploy-documentation:
+    name: Deploy documentation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 🔐 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+          # disable-sudo: true
+          # egress-policy: block
+          # allowed-endpoints: >
+          #   api.github.com:443
+          #   api.osv.dev:443
+          #   api.securityscorecards.dev:443
+          #   fulcio.sigstore.dev:443
+          #   github.com:443
+          #   oss-fuzz-build-logs.storage.googleapis.com:443
+          #   rekor.sigstore.dev:443
+          #   tuf-repo-cdn.sigstore.dev:443
+          #   www.bestpractices.dev:443
+
+      - name: ⚙️ Checkout code
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          persist-credentials: false
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+        with:
+          node-version: 20
+
+      - name: ⚙️ Install dependencies
+        run: npm clean-install
+
+      - name: 🔎 Verify the integrity of provenance attestations and registry signatures for installed dependencies
+        run: npm audit signatures
+
+      - name: ⚙️ Build
+        run: npm run docs:build
+
+      - name: 🚀 Push
+        uses: JamesIves/github-pages-deploy-action@65b5dfd4f5bcd3a7403bbc2959c144256167464e # v4.5.0
+        with:
+          branch: gh-pages
+          folder: ./docs
+          token: ${{ secrets.GITHUB_TOKEN }}
