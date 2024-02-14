@@ -1,5 +1,5 @@
 {
-  "spaceId": "ik845af5x553",
+  "spaceId": "804ocb5nrt21",
   "environmentId": "master",
   "exportDir": "./__tests__/exports/contentful",
   "saveFile": true,
@@ -11,7 +11,7 @@
   "skipRoles": false,
   "skipWebhooks": false,
   "contentOnly": false,
-  "queryEntries": ["content_type=agnosticCmsHarmonizer"],
+  "queryEntries": ["content_type=multiTypeForm"],
   "downloadAssets": false,
   "host": "api.contentful.com",
   "rawProxy": false,
