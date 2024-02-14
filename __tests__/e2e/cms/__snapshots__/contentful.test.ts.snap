@@ -3,7 +3,8 @@
 exports[`contentful should not fail retrieve content 1`] = `
 {
   "data": {
-    "boolean": true,
+    "booleanInputFieldDefaultTrue": true,
+    "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
   },
 }
 `;
