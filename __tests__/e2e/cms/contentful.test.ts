@@ -1,7 +1,6 @@
 import { config as configDotenv } from 'dotenv';
 configDotenv();
 
-console.log('CONTENTFUL_ACCESS_TOKEN', process.env.CONTENTFUL_ACCESS_TOKEN);
 
 import { Contentful } from '../../../src/cms/contentful';
 
