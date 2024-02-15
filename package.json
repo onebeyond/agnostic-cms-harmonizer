@@ -2,14 +2,18 @@
   "name": "@onebeyond/agnostic-cms-harmonizer",
   "version": "1.0.0",
   "description": "Library to manage the communication with any CMS agnostic to the user",
-  "main": "index.js",
+  "main": "build/index.js",
   "keywords": [
     "cms"
   ],
-  "author": "Íñigo Marquínez Prado",
+  "author": "One Beyond",
   "license": "MIT",
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
+  },
+  "engines": {
+    "node": ">=18",
+    "npm": ">=9"
   },
   "scripts": {
     "prebuild": "rimraf ./build",
@@ -18,27 +22,42 @@
     "start": "node build/index.js",
     "prepare": "is-ci || husky",
     "docs:build": "npx typedoc",
-    "docs:serve": "PORT=4000 npx serve docs"
+    "docs:serve": "PORT=4000 npx serve docs",
+    "test": "npx jest",
+    "test:ci": "npm run test -- --ci --verbose false",
+    "test:watch": "npm run test -- --watchAll",
+    "test:e2e": "npm run test -- --config __tests__/e2e/jest.e2e-config.js",
+    "test:e2e:watch": "npm run test -- --config __tests__/e2e/jest.e2e-config.js --watchAll",
+    "test:e2e:watch:inspect": "node --inspect ./node_modules/jest/bin/jest.js --config __tests__/e2e/jest.e2e-config.js --watchAll --testTimeout 999999"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.6.0",
     "@commitlint/config-conventional": "^18.6.0",
+    "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "dotenv": "^16.4.3",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
     "husky": "^9.0.10",
+    "jest": "^29.7.0",
     "lint-staged": "^15.2.2",
+    "node-notifier": "^10.0.1",
     "prettier": "3.2.5",
     "rimraf": "^5.0.5",
     "serve": "^14.2.1",
+    "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typedoc": "^0.25.8",
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "contentful": "^10.6.21",
     "is-ci": "^3.0.1"
+  },
+  "optionalDependencies": {
+    "contentful-cli": "^3.1.43"
   }
 }
