@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`contentful should not fail retrieve content 1`] = `
+{
+  "data": {
+    "booleanInputFieldDefaultTrue": true,
+    "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
+  },
+}
+`;
