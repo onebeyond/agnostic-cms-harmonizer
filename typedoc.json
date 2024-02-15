@@ -1,5 +1,7 @@
 {
-  // Comments are supported, like tsconfig.json
-  "entryPoints": ["src/index.ts"],
+  "$schema": "https://typedoc.org/schema.json",
+  "includes": "./src",
+  "exclude": ["**/__tests__/**/*"],
+  "entryPoints": ["./src"],
   "out": "docs"
 }

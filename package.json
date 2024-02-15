@@ -2,7 +2,7 @@
   "name": "@onebeyond/agnostic-cms-harmonizer",
   "version": "1.0.0",
   "description": "Library to manage the communication with any CMS agnostic to the user",
-  "main": "build/index.js",
+  "main": "build/src/index.js",
   "keywords": [
     "cms"
   ],
@@ -17,10 +17,11 @@
   },
   "scripts": {
     "prebuild": "rimraf ./build",
-    "build": "tsc",
+    "build": "tsc --build tsconfig.build.json",
     "dev": "ts-node src/index.ts",
     "start": "node build/index.js",
     "prepare": "is-ci || husky",
+    "docs:build:dev": "npx typedoc --watch",
     "docs:build": "npx typedoc",
     "docs:serve": "PORT=4000 npx serve docs",
     "test": "npx jest",
