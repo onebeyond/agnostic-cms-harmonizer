@@ -2,7 +2,7 @@
   "name": "@onebeyond/agnostic-cms-harmonizer",
   "version": "1.0.0",
   "description": "Library to manage the communication with any CMS agnostic to the user",
-  "main": "build/index.js",
+  "main": "build/src/index.js",
   "keywords": [
     "cms"
   ],
@@ -11,18 +11,25 @@
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
+  "engines": {
+    "node": ">=18",
+    "npm": ">=9"
+  },
   "scripts": {
     "prebuild": "rimraf ./build",
-    "build": "tsc",
+    "build": "tsc --build tsconfig.build.json",
     "dev": "ts-node src/index.ts",
     "start": "node build/index.js",
+    "prepare": "is-ci || husky",
+    "docs:build:dev": "npx typedoc --watch",
+    "docs:build": "npx typedoc",
+    "docs:serve": "PORT=4000 npx serve docs",
     "test": "npx jest",
     "test:ci": "npm run test -- --ci --verbose false",
     "test:watch": "npm run test -- --watchAll",
     "test:e2e": "npm run test -- --config __tests__/e2e/jest.e2e-config.js",
     "test:e2e:watch": "npm run test -- --config __tests__/e2e/jest.e2e-config.js --watchAll",
-    "test:e2e:watch:inspect": "node --inspect ./node_modules/jest/bin/jest.js --config __tests__/e2e/jest.e2e-config.js --watchAll --testTimeout 999999",
-    "prepare": "is-ci || husky"
+    "test:e2e:watch:inspect": "node --inspect ./node_modules/jest/bin/jest.js --config __tests__/e2e/jest.e2e-config.js --watchAll --testTimeout 999999"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.6.0",
@@ -41,8 +48,10 @@
     "node-notifier": "^10.0.1",
     "prettier": "3.2.5",
     "rimraf": "^5.0.5",
+    "serve": "^14.2.1",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
+    "typedoc": "^0.25.8",
     "typescript": "^5.3.3"
   },
   "dependencies": {

@@ -2,10 +2,17 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { ClientParams, CmsClientInstance } from './@types/client';
 
+/**
+ * AgnosticCMSHarmonizerClient class.
+ */
 export class AgnosticCMSHarmonizerClient {
   protected clientParams!: ClientParams;
   protected clientInstance!: CmsClientInstance;
 
+  /**
+   * Creates an instance of AgnosticCMSHarmonizerClient.
+   * @param clientParams CMS client parameters.
+   */
   constructor(clientParams: ClientParams) {
     this.clientParams = clientParams;
   }

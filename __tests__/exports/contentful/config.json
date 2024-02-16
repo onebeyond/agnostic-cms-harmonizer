@@ -1,6 +1,6 @@
 {
-  "spaceId": "804ocb5nrt21",
-  "environmentId": "master",
+  "spaceId": "<your-space-id>",
+  "environmentId": "<your-environment-id>",
   "exportDir": "./__tests__/exports/contentful",
   "saveFile": true,
   "contentFile": "agnostic-cms-harmonizer_space.json",
