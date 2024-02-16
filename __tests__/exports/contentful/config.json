@@ -9,7 +9,6 @@
   "skipRoles": false,
   "skipWebhooks": false,
   "contentOnly": false,
-  "queryEntries": ["content_type=multiTypeForm"],
   "downloadAssets": false,
   "host": "api.contentful.com",
   "rawProxy": false,
