@@ -15,6 +15,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Bounteous17",
+      "name": "Àlex Serra",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16175933?v=4",
+      "profile": "https://github.com/Bounteous17",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
