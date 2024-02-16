@@ -4,6 +4,47 @@ exports[`contentful should not fail retrieve content 1`] = `
 {
   "data": {
     "booleanInputFieldDefaultTrue": true,
+    "questions": [
+      {
+        "fields": {
+          "identifier": "First name question",
+          "label": "First name",
+          "placeholder": "Please enter your name",
+        },
+        "metadata": {
+          "tags": [],
+        },
+        "sys": {
+          "contentType": {
+            "sys": {
+              "id": "question",
+              "linkType": "ContentType",
+              "type": "Link",
+            },
+          },
+          "createdAt": "2024-02-16T12:01:35.188Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "linkType": "Environment",
+              "type": "Link",
+            },
+          },
+          "id": "5vX5fGs6Px3Khf1JO9blyW",
+          "locale": "en-US",
+          "revision": 2,
+          "space": {
+            "sys": {
+              "id": "e5vout4n90kx",
+              "linkType": "Space",
+              "type": "Link",
+            },
+          },
+          "type": "Entry",
+          "updatedAt": "2024-02-16T12:03:52.501Z",
+        },
+      },
+    ],
     "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
   },
 }
