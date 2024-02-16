@@ -1,7 +1,8 @@
 # Agnostic CMS harmonizer
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+<p align="center">
+  <a href="https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square" target="_blank"><img src="https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square" alt="all-contributors" /></a>
+</p>
 
 Library to handle communication with different CMSs in a user-agnostic way.
 
@@ -58,10 +59,10 @@ There is also a config file provided in case you need to [export](https://www.co
 
 ```bash
 # If you have the contenful-cli installed globally
-contentful space export --config ./__tests__/exports/contentful/config.json
+contentful space export --config ./__tests__/exports/contentful/config.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
 
 # If you don't have the contenful-cli installed globally
-npx contentful-cli space export --config ./__tests__/exports/contentful/config.json
+npx contentful-cli space export --config ./__tests__/exports/contentful/config.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
 ```
 
 ## Contributors ✨
