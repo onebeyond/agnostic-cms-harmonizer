@@ -17,6 +17,17 @@
       ]
     },
     {
+      "login": "Bounteous17",
+      "name": "Àlex Serra",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16175933?v=4",
+      "profile": "https://github.com/Bounteous17",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
+    },
+     {
       "login": "matyasjay",
       "name": "Matyas Angyal",
       "avatar_url": "https://avatars.githubusercontent.com/u/88377077?v=4",
@@ -24,7 +35,7 @@
       "contributions": [
         "review"
       ]
-    }
+    },
   ],
   "contributorsPerLine": 7,
   "skipCi": true,
