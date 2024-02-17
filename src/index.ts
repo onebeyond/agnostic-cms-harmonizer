@@ -7,7 +7,7 @@ import {
 /**
  * HarmonizerClient
  */
-class HarmonizerClient {
+export class HarmonizerClient {
   protected clientParams!: ClientParams;
   protected clientInstance!: CmsClientInstance;
 
@@ -66,5 +66,3 @@ class HarmonizerClient {
     }
   }
 }
-
-export default HarmonizerClient;

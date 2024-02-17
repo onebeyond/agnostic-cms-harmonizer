@@ -8,10 +8,13 @@ import {
   FieldsType,
 } from 'contentful';
 
-import AbstractHarmonizerClient from '../index.abstract';
+import { AbstractHarmonizerClient } from '../index.abstract';
 
 type ContentfulEntry<T> = Entry<EntrySkeletonType<T & FieldsType>>;
 
+/**
+ * The Harmonized Contentful CMS client.
+ */
 export class Contentful extends AbstractHarmonizerClient {
   protected clientInstance: ContentfulClientApi<undefined>;
 

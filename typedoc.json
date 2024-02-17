@@ -2,6 +2,6 @@
   "$schema": "https://typedoc.org/schema.json",
   "includes": "./src",
   "exclude": ["**/__tests__/**/*"],
-  "entryPoints": ["./src"],
+  "entryPoints": ["./src", "./src/cms/contentful.ts"],
   "out": "docs"
 }

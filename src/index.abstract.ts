@@ -1,8 +1,8 @@
 import { CmsClientInstance, HarmonizedResponse } from './@types/client';
 
-import HarmonizerClient from './index';
+import { HarmonizerClient } from './index';
 
-abstract class AbstractHarmonizerClient extends HarmonizerClient {
+export abstract class AbstractHarmonizerClient extends HarmonizerClient {
   public abstract initialize(): Promise<void>;
   protected abstract getClientInstance(): CmsClientInstance;
   public abstract getEntry<T = unknown>(
@@ -13,5 +13,3 @@ abstract class AbstractHarmonizerClient extends HarmonizerClient {
     modifiers?: unknown,
   ): Promise<HarmonizedResponse<T>>;
 }
-
-export default AbstractHarmonizerClient;
