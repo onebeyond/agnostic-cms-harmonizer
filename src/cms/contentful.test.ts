@@ -9,19 +9,19 @@ jest.mock('contentful', () => ({
   createClient: jest.fn((params) => contentfulPkg.createClient(params)),
 }));
 
-import { Contentful } from './contentful';
+import { HarmonizerContentfulClient } from './contentful';
 
 describe('Contentful', () => {
   describe('Client', () => {
     it('should instantiate client instance from the Harmonizer', async () => {
       expect.assertions(3);
 
-      const contentful = new Contentful({
+      const contentful = new HarmonizerContentfulClient({
         accessToken: MOCK_ACCESS_TOKEN,
         space: MOCK_SPACE,
       });
 
-      const initializeSpy = jest.spyOn(Contentful.prototype, 'initialize');
+      const initializeSpy = jest.spyOn(HarmonizerContentfulClient.prototype, 'initialize');
       const createClientSpy = jest.spyOn(contentfulMockPkg, 'createClient');
 
       expect(initializeSpy.mock.calls.length).toEqual(0);

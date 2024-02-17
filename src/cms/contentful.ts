@@ -13,9 +13,9 @@ import { AbstractHarmonizerClient } from '../index.abstract';
 type ContentfulEntry<T> = Entry<EntrySkeletonType<T & FieldsType>>;
 
 /**
- * The Harmonized Contentful CMS client.
+ * The Harmonizer Contentful CMS client.
  */
-export class Contentful extends AbstractHarmonizerClient {
+export class HarmonizerContentfulClient extends AbstractHarmonizerClient {
   protected clientInstance: ContentfulClientApi<undefined>;
 
   constructor(clientParams: ContentfulClientParams) {
@@ -34,17 +34,17 @@ export class Contentful extends AbstractHarmonizerClient {
 
   /**
    * Returns the Contentful client instance.
-   * @returns {ContentfulClientApi<undefined>}
+   * @returns The Contentful client instance.
    */
   protected getClientInstance(): ContentfulClientApi<undefined> {
     return this.clientInstance;
   }
 
   /**
-   * Returns the harmonized response from an entry request.
+   * Returns the harmonizer response from an entry request.
    * @param entryId The Entry ID.
    * @param modifiers The Contentful query modifiers.
-   * @returns The harmonized response.
+   * @returns The harmonizer response.
    */
   public async getEntry<T = Record<string, unknown>>(
     entryId: string,

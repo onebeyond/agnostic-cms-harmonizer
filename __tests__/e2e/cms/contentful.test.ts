@@ -2,12 +2,12 @@ import { config as configDotenv } from 'dotenv';
 configDotenv();
 
 
-import { Contentful } from '../../../src/cms/contentful';
+import { HarmonizerContentfulClient } from '../../../src/cms/contentful';
 
 describe('contentful', () => {
   describe('should not fail', () => {
     it('retrieve content', async () => {
-      const contentful = new Contentful({
+      const contentful = new HarmonizerContentfulClient({
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN as string,
         environment: process.env.CONTENTFUL_ENVIRONMENT as string,
         space: process.env.CONTENTFUL_SPACE as string,
