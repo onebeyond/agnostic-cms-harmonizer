@@ -1,31 +1,62 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   CreateClientParams as ContentfulClientParams,
   createClient,
   ContentfulClientApi,
+  EntryQueries,
+  Entry,
+  EntrySkeletonType,
+  FieldsType,
 } from 'contentful';
 
-import { AbstractAgnosticCMSHarmonizerClient } from '../index.abstract';
+import AbstractHarmonizerClient from '../index.abstract';
 
-export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
+type ContentfulEntry<T> = Entry<EntrySkeletonType<T & FieldsType>>;
+
+export class Contentful extends AbstractHarmonizerClient {
+  protected clientInstance: ContentfulClientApi<undefined>;
+
   constructor(clientParams: ContentfulClientParams) {
     super(clientParams);
+    this.clientInstance = Object.create(null);
   }
 
+  /**
+   * Initializes the Contentful client instance.
+   */
   public async initialize(): Promise<void> {
     this.clientInstance = await this.agnosticCmsInitialize(async () =>
       createClient(this.clientParams),
     );
   }
 
+  /**
+   * Returns the Contentful client instance.
+   * @returns {ContentfulClientApi<undefined>}
+   */
   protected getClientInstance(): ContentfulClientApi<undefined> {
-    return this.clientInstance as ContentfulClientApi<undefined>;
+    return this.clientInstance;
   }
 
-  public async getEntry(entryId: string) {
-    return await this.getEntryHarmonized(
-      () => this.getClientInstance().getEntry(entryId),
-      ({ fields }: { fields: any }) => ({ data: fields }),
+  /**
+   * Returns the harmonized response from an entry request.
+   * @param entryId The Entry ID.
+   * @param modifiers The Contentful query modifiers.
+   * @returns The harmonized response.
+   */
+  public async getEntry<T = Record<string, unknown>>(
+    entryId: string,
+    modifiers?: EntryQueries<undefined>,
+  ) {
+    return await this.getEntryHarmonized<
+      ContentfulEntry<T>,
+      ContentfulEntry<T>['fields']
+    >(
+      () =>
+        this.getClientInstance().getEntry<EntrySkeletonType<T & FieldsType>>(
+          entryId,
+          modifiers,
+        ),
+      ({ fields }) => ({ data: fields }),
     );
   }
 }

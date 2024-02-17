@@ -1,45 +1,38 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+const MOCK_ACCESS_TOKEN = 'mock_token';
+const MOCK_SPACE = 'mock_space';
+
 const contentfulPkg = jest.requireActual('contentful');
-const contentfulMockedPkg = jest.requireMock('contentful');
+const contentfulMockPkg = jest.requireMock('contentful');
+
 jest.mock('contentful', () => ({
   ...contentfulPkg,
   createClient: jest.fn((params) => contentfulPkg.createClient(params)),
 }));
+
 import { Contentful } from './contentful';
 
-describe('contentful', () => {
-  describe('should not fail', () => {
-    it('instance contentful client', async () => {
+describe('Contentful', () => {
+  describe('Client', () => {
+    it('should instantiate client instance from the Harmonizer', async () => {
+      expect.assertions(3);
+
       const contentful = new Contentful({
-        accessToken: '0b7f6x59a0',
-        space: 'developer_bookshelf',
+        accessToken: MOCK_ACCESS_TOKEN,
+        space: MOCK_SPACE,
       });
 
-      expect(Object.getOwnPropertyNames(Contentful.prototype)).toEqual([
-        'constructor',
-        'initialize',
-        'getClientInstance',
-        'getEntry',
-      ]);
+      const initializeSpy = jest.spyOn(Contentful.prototype, 'initialize');
+      const createClientSpy = jest.spyOn(contentfulMockPkg, 'createClient');
 
-      const spyAgnosticCmsInitialize = jest.spyOn(
-        contentful,
-        'agnosticCmsInitialize' as any,
-      );
-      expect(spyAgnosticCmsInitialize.mock.calls).toEqual([]);
+      expect(initializeSpy.mock.calls.length).toEqual(0);
+
       await contentful.initialize();
-      expect(spyAgnosticCmsInitialize.mock.calls.toString()).toEqual(
-        '() => __awaiter(this, void 0, void 0, function* () { return (0, contentful_1.createClient)(this.clientParams); })',
-      );
 
-      expect(contentfulMockedPkg.createClient.mock.calls).toEqual([
-        [
-          {
-            accessToken: '0b7f6x59a0',
-            space: 'developer_bookshelf',
-          },
-        ],
-      ]);
+      expect(initializeSpy.mock.calls.length).toEqual(1);
+      expect(createClientSpy.mock.lastCall?.[0]).toMatchObject({
+        accessToken: MOCK_ACCESS_TOKEN,
+        space: MOCK_SPACE,
+      });
     });
   });
 });

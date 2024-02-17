@@ -1,43 +1,61 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
-import { ClientParams, CmsClientInstance } from './@types/client';
+import {
+  ClientParams,
+  CmsClientInstance,
+  HarmonizedResponse,
+} from './@types/client';
 
 /**
- * AgnosticCMSHarmonizerClient class.
+ * HarmonizerClient
  */
-export class AgnosticCMSHarmonizerClient {
+class HarmonizerClient {
   protected clientParams!: ClientParams;
   protected clientInstance!: CmsClientInstance;
 
   /**
-   * Creates an instance of AgnosticCMSHarmonizerClient.
-   * @param clientParams CMS client parameters.
+   * Creates an instance of HarmonizerClient from the provided parameters.
+   * @param {ClientParams} clientParams - The CMS client parameters.
    */
   constructor(clientParams: ClientParams) {
     this.clientParams = clientParams;
   }
 
-  protected async agnosticCmsInitialize(handler: Function): Promise<any> {
+  protected async agnosticCmsInitialize<T = unknown>(
+    handler: () => T,
+  ): Promise<T> {
     try {
-      return await handler();
+      return handler();
     } catch (error) {
       throw new Error(`Failed to initialize cms client\n${error}`);
     }
   }
 
-  protected async getEntryHarmonized(
-    getEntryHandler: Function,
-    parsHandler: Function,
-  ): Promise<any> {
+  /**
+   * Returns the harmonized response from an entry request.
+   * @param handler The handler function to obtain the entry.
+   * @param parser The parser function to harmonize the response.
+   * @returns The harmonized response.
+   */
+  protected async getEntryHarmonized<
+    T = Record<string, unknown>,
+    R = Record<string, unknown>,
+  >(
+    handler: () => Promise<T>,
+    parser: (
+      data: Awaited<ReturnType<typeof handler>>,
+    ) => HarmonizedResponse<R>,
+  ): Promise<HarmonizedResponse<R>> {
     try {
-      const data = await getEntryHandler();
-      return parsHandler(data);
+      const data = await handler();
+      return parser(data);
     } catch (error) {
       throw new Error(`Error obtaining entry:\n${error}`);
     }
   }
 
-  protected execParser(handler: Function, data: any): Promise<any> {
+  protected execParser<T = unknown>(
+    handler: (data: T) => Promise<T>,
+    data: T,
+  ): Promise<T> {
     try {
       if (!data) {
         throw new Error('No data provided for parsing');
@@ -48,3 +66,5 @@ export class AgnosticCMSHarmonizerClient {
     }
   }
 }
+
+export default HarmonizerClient;

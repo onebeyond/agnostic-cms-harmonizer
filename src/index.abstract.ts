@@ -1,10 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { CmsClientInstance } from './@types/client';
+import { CmsClientInstance, HarmonizedResponse } from './@types/client';
 
-import { AgnosticCMSHarmonizerClient } from '.';
+import HarmonizerClient from './index';
 
-export abstract class AbstractAgnosticCMSHarmonizerClient extends AgnosticCMSHarmonizerClient {
+abstract class AbstractHarmonizerClient extends HarmonizerClient {
   public abstract initialize(): Promise<void>;
   protected abstract getClientInstance(): CmsClientInstance;
-  public abstract getEntry(entryId: string): Promise<any>;
+  public abstract getEntry<T = unknown>(
+    entryId: string,
+  ): Promise<HarmonizedResponse<T>>;
+  public abstract getEntry<T = unknown>(
+    entryId: string,
+    modifiers?: unknown,
+  ): Promise<HarmonizedResponse<T>>;
 }
+
+export default AbstractHarmonizerClient;
