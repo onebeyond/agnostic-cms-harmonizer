@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`contentful should not fail retrieve content 1`] = `
+exports[`contentful should not fail retrieve content in default locale (en-US) 1`] = `
 {
   "data": {
     "booleanInputFieldDefaultTrue": true,
@@ -20,6 +20,30 @@ exports[`contentful should not fail retrieve content 1`] = `
     ],
     "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
     "singleMediaInputField": "https://images.ctfassets.net/e5vout4n90kx/36j3phOyWhdSaqhRKeLauu/5bcf8eb2d10fdfb9d5af61f501d422ae/banner.jpg",
+  },
+}
+`;
+
+exports[`contentful should not fail retrieve content in specific locale \`es\` 1`] = `
+{
+  "data": {
+    "booleanInputFieldDefaultTrue": true,
+    "jsonInputField": {
+      "objectKey": "objectValue",
+    },
+    "questions": [
+      {
+        "configuration": {
+          "identifier": "First name question configuration",
+          "required": true,
+        },
+        "identifier": "First name question",
+        "label": "Nombre",
+        "placeholder": "Por favor, introduzca su nombre",
+      },
+    ],
+    "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
+    "singleMediaInputField": "https:undefined",
   },
 }
 `;
