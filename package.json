@@ -21,6 +21,7 @@
     "dev": "ts-node src/index.ts",
     "start": "node build/index.js",
     "prepare": "is-ci || husky",
+    "format": "npx prettier --write .",
     "docs:build:dev": "npx typedoc --watch",
     "docs:build": "npx typedoc",
     "docs:serve": "PORT=4000 npx serve docs",
