@@ -1,7 +1,6 @@
 import { config as configDotenv } from 'dotenv';
 configDotenv();
 
-
 import { Contentful } from '../../../src/cms/contentful';
 
 describe('contentful', () => {

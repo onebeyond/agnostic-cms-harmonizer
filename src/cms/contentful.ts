@@ -1,11 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  CreateClientParams as ContentfulClientParams,
+  type CreateClientParams as ContentfulClientParams,
   createClient,
-  ContentfulClientApi,
+  type ContentfulClientApi,
+  type Entry,
+  type EntrySkeletonType,
+  EntryQueries,
 } from 'contentful';
 
+import { HarmonizedOutput } from '../@types';
 import { AbstractAgnosticCMSHarmonizerClient } from '../index.abstract';
+
+enum ContentfulResourceType {
+  ENTRY = 'Entry',
+  ASSET = 'Asset',
+}
 
 export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
   constructor(clientParams: ContentfulClientParams) {
@@ -22,10 +31,48 @@ export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
     return this.clientInstance as ContentfulClientApi<undefined>;
   }
 
-  public async getEntry(entryId: string) {
+  public async getEntry(
+    entryId: string,
+    locale?: string,
+  ): Promise<HarmonizedOutput> {
     return await this.getEntryHarmonized(
-      () => this.getClientInstance().getEntry(entryId),
-      ({ fields }: { fields: any }) => ({ data: fields }),
+      this.getEntryHandler.bind(this, entryId, { locale, include: 10 }),
+      this.parserHandler.bind(this),
     );
+  }
+
+  private async getEntryHandler(
+    entryId: string,
+    query?: EntryQueries<undefined>,
+  ): Promise<Entry<EntrySkeletonType, undefined, string>> {
+    return this.getClientInstance().getEntry(entryId, query);
+  }
+
+  private parserHandler(
+    payload: Entry<EntrySkeletonType, undefined, string>,
+  ): HarmonizedOutput {
+    const output = this.mapper(payload);
+    return { data: output };
+  }
+
+  private mapper(item: any): any {
+    switch (item?.sys?.type) {
+      case ContentfulResourceType.ENTRY:
+        return Object.entries(item.fields).reduce((acc, [key, value]) => {
+          if (Array.isArray(value)) {
+            return {
+              ...acc,
+              [key]: value.map((valueItem) => this.mapper(valueItem)),
+            };
+          }
+          return { ...acc, [key]: this.mapper(value) };
+        }, {});
+
+      case ContentfulResourceType.ASSET:
+        return `https:${item.fields?.file?.url}`;
+
+      default:
+        return item;
+    }
   }
 }
