@@ -18,7 +18,7 @@ describe('contentful', () => {
       expect(harmonizedData).toMatchSnapshot();
     });
 
-    it('retrieve only one level of content in default locale (en-US)', async () => {
+    it('retrieve only root level of content in default locale (en-US)', async () => {
       const contentful = new Contentful({
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN as string,
         environment: process.env.CONTENTFUL_ENVIRONMENT as string,

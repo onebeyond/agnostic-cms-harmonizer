@@ -87,7 +87,7 @@ export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
         return `https:${item.fields?.file?.url}`;
 
       case ContentfulResourceType.LINK:
-        return;
+        return { id: item.sys.id };
 
       default:
         return item;

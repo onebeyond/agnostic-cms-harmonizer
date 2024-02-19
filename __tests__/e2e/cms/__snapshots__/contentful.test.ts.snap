@@ -48,7 +48,7 @@ exports[`contentful should not fail retrieve content in specific locale \`es\` 1
 }
 `;
 
-exports[`contentful should not fail retrieve only one level of content in default locale (en-US) 1`] = `
+exports[`contentful should not fail retrieve only root level of content in default locale (en-US) 1`] = `
 {
   "data": {
     "booleanInputFieldDefaultTrue": true,
@@ -56,10 +56,14 @@ exports[`contentful should not fail retrieve only one level of content in defaul
       "objectKey": "objectValue",
     },
     "questions": [
-      undefined,
+      {
+        "id": "5vX5fGs6Px3Khf1JO9blyW",
+      },
     ],
     "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
-    "singleMediaInputField": undefined,
+    "singleMediaInputField": {
+      "id": "36j3phOyWhdSaqhRKeLauu",
+    },
   },
 }
 `;
