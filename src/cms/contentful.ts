@@ -11,10 +11,10 @@ import {
 import { HarmonizedOutput } from '../@types';
 import { AbstractAgnosticCMSHarmonizerClient } from '../index.abstract';
 
-enum ContentfulResourceType {
-  ENTRY = 'Entry',
-  ASSET = 'Asset',
-}
+const ContentfulResourceType = {
+  ENTRY: 'Entry',
+  ASSET: 'Asset',
+} as const;
 
 export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
   constructor(clientParams: ContentfulClientParams) {
