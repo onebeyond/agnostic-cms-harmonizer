@@ -35,8 +35,13 @@ export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
     entryId: string,
     locale?: string,
   ): Promise<HarmonizedOutput> {
+    const query = {
+      locale,
+      include: 10 as const, // Include up to 10 levels of linked entries
+    };
+
     return await this.getEntryHarmonized(
-      this.getEntryHandler.bind(this, entryId, { locale, include: 10 }),
+      this.getEntryHandler.bind(this, entryId, query),
       this.parserHandler.bind(this),
     );
   }
