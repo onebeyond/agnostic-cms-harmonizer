@@ -27,11 +27,11 @@ export class AgnosticCMSHarmonizerClient {
 
   protected async getEntryHarmonized(
     getEntryHandler: Function,
-    parsHandler: Function,
+    parserHandler: Function,
   ): Promise<any> {
     try {
       const data = await getEntryHandler();
-      return parsHandler(data);
+      return parserHandler(data);
     } catch (error) {
       throw new Error(`Error obtaining entry:\n${error}`);
     }

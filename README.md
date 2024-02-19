@@ -1,7 +1,8 @@
 # Agnostic CMS harmonizer
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+<p align="center">
+  <a href="https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square" target="_blank"><img src="https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square" alt="all-contributors" /></a>
+</p>
 
 Library to handle communication with different CMSs in a user-agnostic way.
 
@@ -48,20 +49,20 @@ To import the dummy content run the following command:
 
 ```bash
 # If you have the contenful-cli installed globally
-contentful space import --content-file __tests__/exports/contentful/agnostic-cms-harmonizer_space.json --space-id <your-contentful-space-id>
+contentful space import --content-file __tests__/exports/contentful/agnostic-cms-harmonizer_space.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
 
 # If you don't have the contenful-cli installed globally
-npx contentful-cli space import --content-file __tests__/exports/contentful/agnostic-cms-harmonizer_space.json --space-id <your-contentful-space-id>
+npx contentful-cli space import --content-file __tests__/exports/contentful/agnostic-cms-harmonizer_space.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
 ```
 
-There is also a config file provided in case you need to [export](https://www.contentful.com/developers/docs/tutorials/cli/import-and-export/#exporting-content) your space's content for any reason `./__tests__/exports/contentful/config.json`. You just need to change the `spaceId` and `environmentId` variables locally and run the following command:
+There is also a  located at `./__tests__/exports/contentful/config.json` in case you need to [export](https://www.contentful.com/developers/docs/tutorials/cli/import-and-export/#exporting-content) your space's content for any reason. You just need to run the following command:
 
 ```bash
 # If you have the contenful-cli installed globally
-contentful space export --config ./__tests__/exports/contentful/config.json
+contentful space export --config ./__tests__/exports/contentful/config.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
 
 # If you don't have the contenful-cli installed globally
-npx contentful-cli space export --config ./__tests__/exports/contentful/config.json
+npx contentful-cli space export --config ./__tests__/exports/contentful/config.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
 ```
 
 ## Contributors ✨
