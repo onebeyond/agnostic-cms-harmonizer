@@ -9,12 +9,21 @@ import {
 } from 'contentful';
 
 import { HarmonizedOutput } from '../@types';
-import { AbstractAgnosticCMSHarmonizerClient } from '../index.abstract';
+import {
+  AbstractAgnosticCMSHarmonizerClient,
+  AbstractGetEntryParams,
+} from '../index.abstract';
 
-const ContentfulResourceType = {
-  ENTRY: 'Entry',
+const ContentfulResourceType = Object.freeze({
   ASSET: 'Asset',
-} as const;
+  ENTRY: 'Entry',
+  LINK: 'Link',
+} as const);
+
+export interface ContentfulGetEntryParams extends AbstractGetEntryParams {
+  locale?: string;
+  nestedLevels?: 0 | 2 | 1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+}
 
 export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
   constructor(clientParams: ContentfulClientParams) {
@@ -31,13 +40,14 @@ export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
     return this.clientInstance as ContentfulClientApi<undefined>;
   }
 
-  public async getEntry(
-    entryId: string,
-    locale?: string,
-  ): Promise<HarmonizedOutput> {
+  public async getEntry({
+    entryId,
+    locale,
+    nestedLevels = 10,
+  }: ContentfulGetEntryParams): Promise<HarmonizedOutput> {
     const query = {
       locale,
-      include: 10 as const, // Include up to 10 levels of linked entries
+      include: nestedLevels, // Include up to 10 levels of linked entries
     };
 
     return await this.getEntryHarmonized(
@@ -75,6 +85,9 @@ export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
 
       case ContentfulResourceType.ASSET:
         return `https:${item.fields?.file?.url}`;
+
+      case ContentfulResourceType.LINK:
+        return;
 
       default:
         return item;

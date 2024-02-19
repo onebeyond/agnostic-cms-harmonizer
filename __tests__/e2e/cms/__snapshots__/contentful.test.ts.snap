@@ -47,3 +47,19 @@ exports[`contentful should not fail retrieve content in specific locale \`es\` 1
   },
 }
 `;
+
+exports[`contentful should not fail retrieve only one level of content in default locale (en-US) 1`] = `
+{
+  "data": {
+    "booleanInputFieldDefaultTrue": true,
+    "jsonInputField": {
+      "objectKey": "objectValue",
+    },
+    "questions": [
+      undefined,
+    ],
+    "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
+    "singleMediaInputField": undefined,
+  },
+}
+`;
