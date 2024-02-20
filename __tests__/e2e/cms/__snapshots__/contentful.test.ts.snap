@@ -43,7 +43,7 @@ exports[`contentful should not fail retrieve content in specific locale \`es\` 1
       },
     ],
     "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
-    "singleMediaInputField": "https:undefined",
+    "singleMediaInputField": StringMatching /\\^https:\\\\/\\\\/images\\\\\\.ctfassets\\\\\\.net\\\\/\\.\\+\\\\/banner\\\\\\.jpg\\$/,
   },
 }
 `;

@@ -42,7 +42,13 @@ describe('contentful', () => {
         entryId: process.env.CONTENTFUL_ENTRY as string,
         locale: 'es',
       });
-      expect(harmonizedData).toMatchSnapshot();
+      expect(harmonizedData).toMatchSnapshot({
+        data: {
+          singleMediaInputField: expect.stringMatching(
+            /^https:\/\/images\.ctfassets\.net\/.+\/banner\.jpg$/,
+          ),
+        },
+      });
     });
   });
 });
