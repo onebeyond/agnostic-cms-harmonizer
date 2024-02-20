@@ -3,6 +3,26 @@ configDotenv();
 
 import { HarmonizerContentfulClient } from '../../../src/cms/contentful';
 
+type TestEntryType = {
+  booleanInputFieldDefaultTrue: boolean;
+  jsonInputField: {
+    objectKey: string;
+  };
+  questions: [
+    {
+      configuration: {
+        identifier: string;
+        required: true;
+      };
+      identifier: string;
+      label: string;
+      placeholder: string;
+    },
+  ];
+  simpleShortInputTextAreaOne: string;
+  singleMediaInputField: string;
+};
+
 describe('contentful', () => {
   let contentful: HarmonizerContentfulClient;
 
@@ -17,8 +37,8 @@ describe('contentful', () => {
 
   describe('should not fail', () => {
     it('retrieve content in default locale (en-US)', async () => {
-      const harmonizedData = await contentful.getEntry({
-        entryId: process.env.CONTENTFUL_ENTRY as string,
+      const harmonizedData = await contentful.getEntry<TestEntryType>({
+        entryId: process.env.CONTENTFUL_ENTRY + '',
       });
       expect(harmonizedData).toMatchSnapshot({
         data: {
@@ -30,7 +50,7 @@ describe('contentful', () => {
     });
 
     it('retrieve only root level of content in default locale (en-US)', async () => {
-      const harmonizedData = await contentful.getEntry({
+      const harmonizedData = await contentful.getEntry<TestEntryType>({
         entryId: process.env.CONTENTFUL_ENTRY as string,
         nestedLevels: 0,
       });
@@ -38,7 +58,7 @@ describe('contentful', () => {
     });
 
     it('retrieve content in specific locale `es`', async () => {
-      const harmonizedData = await contentful.getEntry({
+      const harmonizedData = await contentful.getEntry<TestEntryType>({
         entryId: process.env.CONTENTFUL_ENTRY as string,
         locale: 'es',
       });
