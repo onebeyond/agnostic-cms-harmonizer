@@ -39,14 +39,14 @@ export class HarmonizerClient {
     T = Record<string, unknown>,
     R = Record<string, unknown>,
   >(
-    handler: () => Promise<T>,
-    parser: (
+    getEntryHandler: () => Promise<T>,
+    parserHandler: (
       data: Awaited<ReturnType<typeof handler>>,
     ) => HarmonizedResponse<R>,
   ): Promise<HarmonizedResponse<R>> {
     try {
-      const data = await handler();
-      return parser(data);
+      const data = await getEntryHandler();
+      return parserHandler(data);
     } catch (error) {
       throw new Error(`Error obtaining entry:\n${error}`);
     }

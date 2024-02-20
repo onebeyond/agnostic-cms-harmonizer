@@ -1,10 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`contentful should not fail retrieve content 1`] = `
+exports[`contentful should not fail retrieve content in default locale (en-US) 1`] = `
 {
   "data": {
     "booleanInputFieldDefaultTrue": true,
+    "jsonInputField": {
+      "objectKey": "objectValue",
+    },
+    "questions": [
+      {
+        "configuration": {
+          "identifier": "First name question configuration",
+          "required": true,
+        },
+        "identifier": "First name question",
+        "label": "First name",
+        "placeholder": "Please enter your name",
+      },
+    ],
     "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
+    "singleMediaInputField": StringMatching /\\^https:\\\\/\\\\/images\\\\\\.ctfassets\\\\\\.net\\\\/\\.\\+\\\\/banner\\\\\\.jpg\\$/,
+  },
+}
+`;
+
+exports[`contentful should not fail retrieve content in specific locale \`es\` 1`] = `
+{
+  "data": {
+    "booleanInputFieldDefaultTrue": true,
+    "jsonInputField": {
+      "objectKey": "objectValue",
+    },
+    "questions": [
+      {
+        "configuration": {
+          "identifier": "First name question configuration",
+          "required": true,
+        },
+        "identifier": "First name question",
+        "label": "Nombre",
+        "placeholder": "Por favor, introduzca su nombre",
+      },
+    ],
+    "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
+    "singleMediaInputField": StringMatching /\\^https:\\\\/\\\\/images\\\\\\.ctfassets\\\\\\.net\\\\/\\.\\+\\\\/banner\\\\\\.jpg\\$/,
+  },
+}
+`;
+
+exports[`contentful should not fail retrieve only root level of content in default locale (en-US) 1`] = `
+{
+  "data": {
+    "booleanInputFieldDefaultTrue": true,
+    "jsonInputField": {
+      "objectKey": "objectValue",
+    },
+    "questions": [
+      {
+        "id": "5vX5fGs6Px3Khf1JO9blyW",
+      },
+    ],
+    "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
+    "singleMediaInputField": {
+      "id": "36j3phOyWhdSaqhRKeLauu",
+    },
   },
 }
 `;

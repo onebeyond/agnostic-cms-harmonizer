@@ -14,8 +14,6 @@ import { HarmonizerContentfulClient } from './contentful';
 describe('Contentful', () => {
   describe('Client', () => {
     it('should instantiate client instance from the Harmonizer', async () => {
-      expect.assertions(3);
-
       const contentful = new HarmonizerContentfulClient({
         accessToken: MOCK_ACCESS_TOKEN,
         space: MOCK_SPACE,
@@ -25,6 +23,22 @@ describe('Contentful', () => {
       const createClientSpy = jest.spyOn(contentfulMockPkg, 'createClient');
 
       expect(initializeSpy.mock.calls.length).toEqual(0);
+
+      expect(Object.getOwnPropertyNames(Contentful.prototype)).toEqual([
+        'constructor',
+        'initialize',
+        'getClientInstance',
+        'getEntry',
+        'getEntryHandler',
+        'parserHandler',
+        'mapper',
+      ]);
+
+      const spyAgnosticCmsInitialize = jest.spyOn(
+        contentful,
+        'agnosticCmsInitialize' as any,
+      );
+      expect(spyAgnosticCmsInitialize.mock.calls).toEqual([]);
 
       await contentful.initialize();
 
