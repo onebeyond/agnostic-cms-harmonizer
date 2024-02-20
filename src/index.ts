@@ -3,7 +3,9 @@
 import { ClientParams, CmsClientInstance } from './@types/client';
 
 /**
- * AgnosticCMSHarmonizerClient class.
+ * It is not gonna be used by the client directly.
+ *
+ * CMS providers are going to extend their dedicated class from this
  */
 export class AgnosticCMSHarmonizerClient {
   protected clientParams!: ClientParams;
@@ -11,7 +13,7 @@ export class AgnosticCMSHarmonizerClient {
 
   /**
    * Creates an instance of AgnosticCMSHarmonizerClient.
-   * @param clientParams CMS client parameters.
+   * @param clientParams custom type that implements multiple CMS providers client initialize type definitions without any restrictions
    */
   constructor(clientParams: ClientParams) {
     this.clientParams = clientParams;

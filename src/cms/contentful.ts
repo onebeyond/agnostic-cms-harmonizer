@@ -25,11 +25,17 @@ export interface ContentfulGetEntryParams extends AbstractGetEntryParams {
   nestedLevels?: 0 | 2 | 1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 }
 
+/**
+ * Contentful provider.
+ */
 export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
   constructor(clientParams: ContentfulClientParams) {
     super(clientParams);
   }
 
+  /**
+   * @override lala
+   */
   public async initialize(): Promise<void> {
     this.clientInstance = await this.agnosticCmsInitialize(async () =>
       createClient(this.clientParams),

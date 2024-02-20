@@ -1,7 +1,13 @@
 {
   "$schema": "https://typedoc.org/schema.json",
+<<<<<<< Updated upstream
   "includes": "./src",
   "exclude": ["**/__tests__/**/*"],
   "entryPoints": ["./src"],
   "out": "docs"
+=======
+  "entryPoints": ["./src/index.ts", "./src/index.abstract.ts"],
+  "out": "./docs",
+  "tsconfig": "./tsconfig.build.json"
+>>>>>>> Stashed changes
 }
