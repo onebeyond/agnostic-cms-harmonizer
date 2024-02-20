@@ -1,19 +1,19 @@
 import {
-  ClientParams,
-  CmsClientInstance,
-  HarmonizedResponse,
-} from './@types/client';
+  type HarmonizedOutput,
+  type ClientParams,
+  type CmsClientInstance,
+} from './@types';
 
 /**
- * HarmonizerClient
+ * AgnosticCMSHarmonizerClient class.
  */
-export class HarmonizerClient {
+export class AgnosticCMSHarmonizerClient {
   protected clientParams!: ClientParams;
   protected clientInstance!: CmsClientInstance;
 
   /**
-   * Creates an instance of HarmonizerClient from the provided parameters.
-   * @param {ClientParams} clientParams - The CMS client parameters.
+   * Creates an instance of AgnosticCMSHarmonizerClient.
+   * @param clientParams CMS client parameters.
    */
   constructor(clientParams: ClientParams) {
     this.clientParams = clientParams;
@@ -29,21 +29,12 @@ export class HarmonizerClient {
     }
   }
 
-  /**
-   * Returns the harmonized response from an entry request.
-   * @param handler The handler function to obtain the entry.
-   * @param parser The parser function to harmonize the response.
-   * @returns The harmonized response.
-   */
-  protected async getEntryHarmonized<
-    T = Record<string, unknown>,
-    R = Record<string, unknown>,
-  >(
+  protected async getEntryHarmonized<T = Record<string, unknown>>(
     getEntryHandler: () => Promise<T>,
     parserHandler: (
-      data: Awaited<ReturnType<typeof handler>>,
-    ) => HarmonizedResponse<R>,
-  ): Promise<HarmonizedResponse<R>> {
+      data: Awaited<ReturnType<typeof getEntryHandler>>,
+    ) => HarmonizedOutput<T>,
+  ): Promise<HarmonizedOutput<T>> {
     try {
       const data = await getEntryHandler();
       return parserHandler(data);

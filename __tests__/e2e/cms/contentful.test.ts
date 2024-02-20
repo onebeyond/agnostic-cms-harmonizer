@@ -1,13 +1,13 @@
 import { config as configDotenv } from 'dotenv';
 configDotenv();
 
-import { Contentful } from '../../../src/cms/contentful';
+import { HarmonizerContentfulClient } from '../../../src/cms/contentful';
 
 describe('contentful', () => {
-  let contentful: Contentful;
+  let contentful: HarmonizerContentfulClient;
 
   beforeAll(async () => {
-    contentful = new Contentful({
+    contentful = new HarmonizerContentfulClient({
       accessToken: process.env.CONTENTFUL_ACCESS_TOKEN as string,
       environment: process.env.CONTENTFUL_ENVIRONMENT as string,
       space: process.env.CONTENTFUL_SPACE as string,

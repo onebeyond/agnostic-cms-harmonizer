@@ -1,4 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface HarmonizedOutput {
-  data: Record<string, any>[];
-}
+export type HarmonizedOutput<T> = {
+  data: T;
+};

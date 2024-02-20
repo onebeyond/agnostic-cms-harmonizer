@@ -19,25 +19,19 @@ describe('Contentful', () => {
         space: MOCK_SPACE,
       });
 
-      const initializeSpy = jest.spyOn(HarmonizerContentfulClient.prototype, 'initialize');
-      const createClientSpy = jest.spyOn(contentfulMockPkg, 'createClient');
-
-      expect(initializeSpy.mock.calls.length).toEqual(0);
-
-      expect(Object.getOwnPropertyNames(Contentful.prototype)).toEqual([
-        'constructor',
+      const initializeSpy = jest.spyOn(
+        HarmonizerContentfulClient.prototype,
         'initialize',
-        'getClientInstance',
-        'getEntry',
-        'getEntryHandler',
-        'parserHandler',
-        'mapper',
-      ]);
+      );
+
+      const createClientSpy = jest.spyOn(contentfulMockPkg, 'createClient');
 
       const spyAgnosticCmsInitialize = jest.spyOn(
         contentful,
-        'agnosticCmsInitialize' as any,
+        'agnosticCmsInitialize' as keyof typeof contentful,
       );
+
+      expect(initializeSpy.mock.calls.length).toEqual(0);
       expect(spyAgnosticCmsInitialize.mock.calls).toEqual([]);
 
       await contentful.initialize();

@@ -7,7 +7,3 @@ import {
 export type ClientParams = ContentfulClientParams;
 export type CmsClientInstance<T extends ChainModifiers = undefined> =
   ContentfulClientApi<T>;
-
-export type HarmonizerResponse<T> = {
-  data: T;
-};
