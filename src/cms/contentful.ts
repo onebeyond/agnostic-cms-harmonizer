@@ -84,7 +84,9 @@ export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
         }, {});
 
       case ContentfulResourceType.ASSET:
-        return `https:${item.fields?.file?.url}`;
+        return item.fields?.file?.url ?
+            `https:${item.fields?.file?.url}`
+          : undefined;
 
       case ContentfulResourceType.LINK:
         return { id: item.sys.id };
