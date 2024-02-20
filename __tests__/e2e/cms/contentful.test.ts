@@ -12,7 +12,7 @@ type TestEntryType = {
     {
       configuration: {
         identifier: string;
-        required: true;
+        required: boolean;
       };
       identifier: string;
       label: string;
@@ -38,7 +38,7 @@ describe('contentful', () => {
   describe('should not fail', () => {
     it('retrieve content in default locale (en-US)', async () => {
       const harmonizedData = await contentful.getEntry<TestEntryType>({
-        entryId: process.env.CONTENTFUL_ENTRY + '',
+        entryId: process.env.CONTENTFUL_ENTRY as string,
       });
       expect(harmonizedData).toMatchSnapshot({
         data: {
