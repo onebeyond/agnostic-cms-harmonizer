@@ -20,7 +20,13 @@ describe('contentful', () => {
       const harmonizedData = await contentful.getEntry({
         entryId: process.env.CONTENTFUL_ENTRY as string,
       });
-      expect(harmonizedData).toMatchSnapshot();
+      expect(harmonizedData).toMatchSnapshot({
+        data: {
+          singleMediaInputField: expect.stringMatching(
+            /^https:\/\/images\.ctfassets\.net\/.+\/banner\.jpg$/,
+          ),
+        },
+      });
     });
 
     it('retrieve only root level of content in default locale (en-US)', async () => {

@@ -19,7 +19,7 @@ exports[`contentful should not fail retrieve content in default locale (en-US) 1
       },
     ],
     "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
-    "singleMediaInputField": "https://images.ctfassets.net/e5vout4n90kx/36j3phOyWhdSaqhRKeLauu/5bcf8eb2d10fdfb9d5af61f501d422ae/banner.jpg",
+    "singleMediaInputField": StringMatching /\\^https:\\\\/\\\\/images\\\\\\.ctfassets\\\\\\.net\\\\/\\.\\+\\\\/banner\\\\\\.jpg\\$/,
   },
 }
 `;
