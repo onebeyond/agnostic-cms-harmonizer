@@ -71,7 +71,7 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
    *
    * const client = await (new HarmonizerContentfulClient({...})).initialize();
    * const entry = await client.getEntry<MyEntry>({ entryId: '123', locale: 'en-US' });
-   * console.log(entry); // { data: [{ title: 'My title', description: 'My description' }] }
+   * console.log(entry); // { data: { title: 'My title', description: 'My description' } }
    */
   public async getEntry<T = Record<string, unknown>>({
     entryId,
