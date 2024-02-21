@@ -10,22 +10,19 @@ import {
 } from 'contentful';
 
 import { HarmonizedOutput } from '../@types';
-import {
-  AbstractAgnosticCMSHarmonizerClient,
-  AbstractGetEntryParams,
-} from '../index.abstract';
+import { AbstractAgnosticCMSHarmonizerClient, AbstractGetEntryParams } from '../index.abstract';
 
+/**
+ * Type of entries that can be retrieved
+ * @internal
+ */
 const ContentfulResourceType = {
   ASSET: 'Asset',
   ENTRY: 'Entry',
   LINK: 'Link',
 } as const;
 
-export type ContentfulEntry<T> = Entry<
-  EntrySkeletonType<T & FieldsType>,
-  undefined,
-  string
->;
+export type ContentfulEntry<T> = Entry<EntrySkeletonType<T & FieldsType>, undefined, string>;
 
 export type ContentfulEntrySkeleton<T> = EntrySkeletonType<T & FieldsType>;
 
@@ -39,14 +36,16 @@ export type ContentfulGetEntryParams = AbstractGetEntryParams &
  * Contentful provider.
  */
 export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerClient {
+  protected clientInstance: ContentfulClientApi<undefined>;
+
+  /**
+   * @param clientParams {@link https://contentful.github.io/contentful.js/contentful/10.6.21/interfaces/CreateClientParams.html}
+   */
   constructor(clientParams: CreateClientParams) {
     super(clientParams);
     this.clientInstance = Object.create(null);
   }
 
-  /**
-   * Initializes the Contentful client instance.
-   */
   public async initialize(): Promise<void> {
     this.clientInstance = await this.agnosticCmsInitialize(async () =>
       createClient(this.clientParams),
@@ -54,14 +53,13 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
   }
 
   /**
-   * Returns the typed harmonizer response from an entry request.
+   * {@link AbstractAgnosticCMSHarmonizerClient#getEntry}
    * @param {ContentfulGetEntryParams} params
    * @remarks
    * By providing the `entryId` parameter, you can fetch the data for a specific _Contentful entry_.
    * Additionally, you can optionally specify the `locale` and `nestedLevels` parameters.
-   * The `nestedLevels` parameter determines the depth of _reference resolution_ in the
-   * entry and has a default value of __10__. You can also specify the expected data type
-   * by using a _type argument_.
+   * The `nestedLevels` parameter determines the depth of _reference resolution_ in the entry and
+   * has a default value of __10__. You can also specify the expected data type by using a _type argument_.
    * @returns {Promise<HarmonizedOutput<T>>}
    * @example
    * type MyEntry = {
@@ -89,8 +87,6 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
     );
   }
 
-  protected clientInstance: ContentfulClientApi<undefined>;
-
   protected getClientInstance(): ContentfulClientApi<undefined> {
     return this.clientInstance;
   }
@@ -99,10 +95,7 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
     entryId: string,
     query?: EntryQueries<undefined>,
   ): Promise<ContentfulEntry<T>> {
-    return this.getClientInstance().getEntry<ContentfulEntrySkeleton<T>>(
-      entryId,
-      query,
-    );
+    return this.getClientInstance().getEntry<ContentfulEntrySkeleton<T>>(entryId, query);
   }
 
   private parserHandler<T = Record<string, unknown>>(
@@ -121,9 +114,7 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
           if (Array.isArray(value)) {
             return {
               ...acc,
-              [key]: value.map((valueItem) =>
-                this.mapper<T>(valueItem || Object.create(null)),
-              ),
+              [key]: value.map((valueItem) => this.mapper<T>(valueItem || Object.create(null))),
             };
           }
           return {
@@ -133,9 +124,7 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
         }, Object.create(null));
 
       case ContentfulResourceType.ASSET:
-        return Object(item.fields?.file)?.url ?
-            `https:${Object(item.fields.file).url}`
-          : null;
+        return Object(item.fields?.file)?.url ? `https:${Object(item.fields.file).url}` : null;
 
       case ContentfulResourceType.LINK:
         return Object.assign(Object.create(null), { id: item.sys.id });
