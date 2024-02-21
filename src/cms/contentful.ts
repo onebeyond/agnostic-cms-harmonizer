@@ -36,10 +36,10 @@ export type ContentfulGetEntryParams = AbstractGetEntryParams &
   };
 
 /**
- * The Harmonizer Contentful CMS client.
+ * Contentful provider.
  */
 export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerClient {
-  constructor(clientParams: CreateClientParams) {
+  constructor(clientParams: ContentfulClientParams) {
     super(clientParams);
     this.clientInstance = Object.create(null);
   }
