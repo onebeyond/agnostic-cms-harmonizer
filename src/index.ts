@@ -13,9 +13,8 @@ export class AgnosticCMSHarmonizerClient {
   protected clientInstance!: CmsClientInstance;
 
   /**
-   * Creates an instance of AgnosticCMSHarmonizerClient.
-   * @param clientParams custom type that implements multiple CMS providers client initialize
-   * type definitions without any restrictions
+   * Creates an instance of {@link AgnosticCMSHarmonizerClient}.
+   * @param clientParams {@link ClientParams}
    */
   constructor(clientParams: ClientParams) {
     this.clientParams = clientParams;
@@ -41,6 +40,7 @@ export class AgnosticCMSHarmonizerClient {
    * @param getEntryHandler native provider library method for obtaining the content
    * @param parserHandler parse the obtained entry data, since each provider returns the entries with a different format
    * @returns The entry data formatted with the generic output format. Otherwise an error would have occurred
+   * @throws Error obtaining the entry or subsequently parsing the data
    */
   protected async getEntryHarmonized<T = Record<string, unknown>>(
     getEntryHandler: () => Promise<T>,

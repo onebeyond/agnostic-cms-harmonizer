@@ -12,6 +12,10 @@ import {
 import { HarmonizedOutput } from '../@types';
 import { AbstractAgnosticCMSHarmonizerClient, AbstractGetEntryParams } from '../index.abstract';
 
+/**
+ * Type of entries that can be retrieved
+ * @internal
+ */
 const ContentfulResourceType = {
   ASSET: 'Asset',
   ENTRY: 'Entry',
@@ -32,14 +36,16 @@ export type ContentfulGetEntryParams = AbstractGetEntryParams &
  * Contentful provider.
  */
 export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerClient {
+  protected clientInstance: ContentfulClientApi<undefined>;
+
+  /**
+   * @param clientParams {@link https://contentful.github.io/contentful.js/contentful/10.6.21/interfaces/CreateClientParams.html}
+   */
   constructor(clientParams: CreateClientParams) {
     super(clientParams);
     this.clientInstance = Object.create(null);
   }
 
-  /**
-   * Initializes the Contentful client instance.
-   */
   public async initialize(): Promise<void> {
     this.clientInstance = await this.agnosticCmsInitialize(async () =>
       createClient(this.clientParams),
@@ -83,8 +89,6 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
     );
   }
 
-  protected clientInstance: ContentfulClientApi<undefined>;
-
   protected getClientInstance(): ContentfulClientApi<undefined> {
     return this.clientInstance;
   }
@@ -122,9 +126,10 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
         }, Object.create(null));
 
       case ContentfulResourceType.ASSET:
-        return !!item.fields?.file?.url ?
-            `https:${item.fields.file.url}`
-          : null;
+        // return !!item.fields?.file?.url ?
+        //     `https:${item.fields.file.url}`
+        //   : null;
+        return '';
 
       case ContentfulResourceType.LINK:
         return Object.assign(Object.create(null), { id: item.sys.id });
