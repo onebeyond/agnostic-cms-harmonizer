@@ -23,7 +23,7 @@ export class AgnosticCMSHarmonizerClient {
     handler: () => T,
   ): Promise<T> {
     try {
-      return handler();
+      return await handler();
     } catch (error) {
       throw new Error(`Failed to initialize cms client\n${error}`);
     }
