@@ -1,48 +1,46 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+const MOCK_ACCESS_TOKEN = 'mock_token';
+const MOCK_SPACE = 'mock_space';
+
 const contentfulPkg = jest.requireActual('contentful');
-const contentfulMockedPkg = jest.requireMock('contentful');
+const contentfulMockPkg = jest.requireMock('contentful');
+
 jest.mock('contentful', () => ({
   ...contentfulPkg,
   createClient: jest.fn((params) => contentfulPkg.createClient(params)),
 }));
-import { Contentful } from './contentful';
 
-describe('contentful', () => {
-  describe('should not fail', () => {
-    it('instance contentful client', async () => {
-      const contentful = new Contentful({
-        accessToken: '0b7f6x59a0',
-        space: 'developer_bookshelf',
+import { HarmonizerContentfulClient } from './contentful';
+
+describe('Contentful', () => {
+  describe('Client', () => {
+    it('should instantiate client instance from the Harmonizer', async () => {
+      const contentful = new HarmonizerContentfulClient({
+        accessToken: MOCK_ACCESS_TOKEN,
+        space: MOCK_SPACE,
       });
 
-      expect(Object.getOwnPropertyNames(Contentful.prototype)).toEqual([
-        'constructor',
+      const initializeSpy = jest.spyOn(
+        HarmonizerContentfulClient.prototype,
         'initialize',
-        'getClientInstance',
-        'getEntry',
-        'getEntryHandler',
-        'parserHandler',
-        'mapper',
-      ]);
+      );
+
+      const createClientSpy = jest.spyOn(contentfulMockPkg, 'createClient');
 
       const spyAgnosticCmsInitialize = jest.spyOn(
         contentful,
-        'agnosticCmsInitialize' as any,
-      );
-      expect(spyAgnosticCmsInitialize.mock.calls).toEqual([]);
-      await contentful.initialize();
-      expect(spyAgnosticCmsInitialize.mock.calls.toString()).toEqual(
-        '() => __awaiter(this, void 0, void 0, function* () { return (0, contentful_1.createClient)(this.clientParams); })',
+        'agnosticCmsInitialize' as keyof typeof contentful,
       );
 
-      expect(contentfulMockedPkg.createClient.mock.calls).toEqual([
-        [
-          {
-            accessToken: '0b7f6x59a0',
-            space: 'developer_bookshelf',
-          },
-        ],
-      ]);
+      expect(initializeSpy.mock.calls.length).toEqual(0);
+      expect(spyAgnosticCmsInitialize.mock.calls).toEqual([]);
+
+      await contentful.initialize();
+
+      expect(initializeSpy.mock.calls.length).toEqual(1);
+      expect(createClientSpy.mock.lastCall?.[0]).toMatchObject({
+        accessToken: MOCK_ACCESS_TOKEN,
+        space: MOCK_SPACE,
+      });
     });
   });
 });

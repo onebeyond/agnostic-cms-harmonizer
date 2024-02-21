@@ -3,6 +3,8 @@
   "entryPoints": [
     "./src/index.ts",
     "./src/index.abstract.ts",
+    "./src/cms/contentful.ts",
+    "./src/@types/client.ts",
     "./src/@types/output.ts"
   ],
   "out": "./docs",

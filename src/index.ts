@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
-import { ClientParams, CmsClientInstance } from './@types/client';
-import { HarmonizedOutput } from './@types/output';
+import {
+  type HarmonizedOutput,
+  type ClientParams,
+  type CmsClientInstance,
+} from './@types';
 
 /**
- * It is not gonna be used by the client directly.
+ * The agnositic client abstraction class.
  *
- * CMS providers are going to extend their dedicated class from this
+ * Any CMS provider must extend this class to propagate its agnostic interface.
  */
 export class AgnosticCMSHarmonizerClient {
   protected clientParams!: ClientParams;
@@ -26,7 +27,9 @@ export class AgnosticCMSHarmonizerClient {
    * @returns The handler generated output
    * @throws An error with a minimal description, followed by the unmodified error of the provided function
    */
-  protected async agnosticCmsInitialize(handler: Function): Promise<any> {
+  protected async agnosticCmsInitialize<T = unknown>(
+    handler: () => T,
+  ): Promise<T> {
     try {
       return await handler();
     } catch (error) {
@@ -41,10 +44,12 @@ export class AgnosticCMSHarmonizerClient {
    * returns the entries with a different format
    * @returns The entry data formatted with the generic output format. Otherwise an error would have occurred
    */
-  protected async getEntryHarmonized(
-    getEntryHandler: Function,
-    parserHandler: Function,
-  ): Promise<HarmonizedOutput> {
+  protected async getEntryHarmonized<T = Record<string, unknown>>(
+    getEntryHandler: () => Promise<T>,
+    parserHandler: (
+      data: Awaited<ReturnType<typeof getEntryHandler>>,
+    ) => HarmonizedOutput<T>,
+  ): Promise<HarmonizedOutput<T>> {
     try {
       const data = await getEntryHandler();
       return parserHandler(data);
@@ -53,7 +58,10 @@ export class AgnosticCMSHarmonizerClient {
     }
   }
 
-  protected execParser(handler: Function, data: any): Promise<any> {
+  protected execParser<T = unknown>(
+    handler: (data: T) => Promise<T>,
+    data: T,
+  ): Promise<T> {
     try {
       if (!data) {
         throw new Error('No data provided for parsing');
