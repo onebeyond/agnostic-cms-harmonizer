@@ -107,14 +107,14 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
 
   private parserHandler<T = Record<string, unknown>>(
     payload: ContentfulEntry<T>,
-  ): HarmonizedOutput<string | ContentfulEntry<T>> {
+  ): HarmonizedOutput<string | ContentfulEntry<T> | null> {
     const output = this.mapper<T>(payload);
     return { data: output };
   }
 
   private mapper<T = Record<string, unknown>>(
     item: ContentfulEntry<T>,
-  ): string | ContentfulEntry<T> {
+  ): string | ContentfulEntry<T> | null {
     switch (item?.sys?.type + '') {
       case ContentfulResourceType.ENTRY:
         return Object.entries(item.fields).reduce((acc, [key, value]) => {
@@ -133,8 +133,8 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
         }, Object.create(null));
 
       case ContentfulResourceType.ASSET:
-        return !!item.fields?.file?.url ?
-            `https:${item.fields.file.url}`
+        return Object(item.fields?.file)?.url ?
+            `https:${Object(item.fields.file).url}`
           : null;
 
       case ContentfulResourceType.LINK:
