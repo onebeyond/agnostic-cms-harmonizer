@@ -122,7 +122,9 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
         }, Object.create(null));
 
       case ContentfulResourceType.ASSET:
-        return `https:${Object(item.fields?.file)?.url}`;
+        return !!item.fields?.file?.url ?
+            `https:${item.fields.file.url}`
+          : null;
 
       case ContentfulResourceType.LINK:
         return Object.assign(Object.create(null), { id: item.sys.id });
