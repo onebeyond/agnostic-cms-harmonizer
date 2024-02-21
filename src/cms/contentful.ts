@@ -39,7 +39,7 @@ export type ContentfulGetEntryParams = AbstractGetEntryParams &
  * Contentful provider.
  */
 export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerClient {
-  constructor(clientParams: ContentfulClientParams) {
+  constructor(clientParams: CreateClientParams) {
     super(clientParams);
     this.clientInstance = Object.create(null);
   }
