@@ -10,10 +10,7 @@ import {
 } from 'contentful';
 
 import { HarmonizedOutput } from '../@types';
-import {
-  AbstractAgnosticCMSHarmonizerClient,
-  AbstractGetEntryParams,
-} from '../index.abstract';
+import { AbstractAgnosticCMSHarmonizerClient, AbstractGetEntryParams } from '../index.abstract';
 
 const ContentfulResourceType = {
   ASSET: 'Asset',
@@ -21,11 +18,7 @@ const ContentfulResourceType = {
   LINK: 'Link',
 } as const;
 
-export type ContentfulEntry<T> = Entry<
-  EntrySkeletonType<T & FieldsType>,
-  undefined,
-  string
->;
+export type ContentfulEntry<T> = Entry<EntrySkeletonType<T & FieldsType>, undefined, string>;
 
 export type ContentfulEntrySkeleton<T> = EntrySkeletonType<T & FieldsType>;
 
@@ -57,7 +50,8 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
    * Returns the typed harmonizer response from an entry request.
    * @param {ContentfulGetEntryParams} params
    * @remarks
-   * By providing the `entryId` parameter, you can fetch the data for a specific _Contentful entry_.
+   * By providing the `entryId` parameter, you can fetch the data for
+   * a specific _Contentful entry_.
    * Additionally, you can optionally specify the `locale` and `nestedLevels` parameters.
    * The `nestedLevels` parameter determines the depth of _reference resolution_ in the
    * entry and has a default value of __10__. You can also specify the expected data type
@@ -99,10 +93,7 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
     entryId: string,
     query?: EntryQueries<undefined>,
   ): Promise<ContentfulEntry<T>> {
-    return this.getClientInstance().getEntry<ContentfulEntrySkeleton<T>>(
-      entryId,
-      query,
-    );
+    return this.getClientInstance().getEntry<ContentfulEntrySkeleton<T>>(entryId, query);
   }
 
   private parserHandler<T = Record<string, unknown>>(
@@ -121,9 +112,7 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
           if (Array.isArray(value)) {
             return {
               ...acc,
-              [key]: value.map((valueItem) =>
-                this.mapper<T>(valueItem || Object.create(null)),
-              ),
+              [key]: value.map((valueItem) => this.mapper<T>(valueItem || Object.create(null))),
             };
           }
           return {

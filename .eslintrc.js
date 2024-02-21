@@ -1,4 +1,6 @@
+/* eslint-disable @stylistic/max-len */
 module.exports = {
+  ignorePatterns: ['docs', 'build'],
   parser: '@typescript-eslint/parser',
   extends: [
     'eslint:recommended',
@@ -7,7 +9,7 @@ module.exports = {
     'plugin:import/typescript',
     'prettier',
   ],
-  plugins: ['@typescript-eslint', 'import'],
+  plugins: ['@typescript-eslint', 'import', '@stylistic'],
   root: true,
   settings: {
     'import/resolver': {
@@ -20,6 +22,7 @@ module.exports = {
     jest: true,
   },
   rules: {
+    '@stylistic/max-len': ['warn', { code: 100, comments: 140 }],
     'import/order': [
       'error',
       {
