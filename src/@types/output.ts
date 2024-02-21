@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**
- * The objactive of every provider is to match this interface after parsing
+ * The objective of every provider is to match this interface after parsing
  * the data from the entries with the custom formatters.
  */
 export interface HarmonizedOutput {
