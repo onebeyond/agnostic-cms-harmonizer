@@ -33,9 +33,6 @@ export class Contentful extends AbstractAgnosticCMSHarmonizerClient {
     super(clientParams);
   }
 
-  /**
-   * @override lala
-   */
   public async initialize(): Promise<void> {
     this.clientInstance = await this.agnosticCmsInitialize(async () =>
       createClient(this.clientParams),
