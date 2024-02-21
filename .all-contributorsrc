@@ -36,7 +36,10 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/88377077?v=4",
       "profile": "https://www.one-beyond.com",
       "contributions": [
-        "review"
+        "review",
+        "code",
+        "doc",
+        "test"
       ]
     },
     {
