@@ -15,3 +15,6 @@ node_modules/
 
 # Auto-generated documentation
 docs/
+
+# Misc
+.DS_Store
