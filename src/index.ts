@@ -9,7 +9,13 @@ import { type HarmonizedOutput, type ClientParams, type CmsClientInstance } from
  * Any CMS provider must extend this class to propagate its agnostic interface.
  */
 export class AgnosticCMSHarmonizerClient {
+  /**
+   * The client parameters for instancing theclient
+   */
   protected clientParams!: ClientParams;
+  /**
+   * One of the allowed provider client instance type
+   */
   protected clientInstance!: CmsClientInstance;
 
   /**
@@ -51,17 +57,6 @@ export class AgnosticCMSHarmonizerClient {
       return parserHandler(data);
     } catch (error) {
       throw new Error(`Error obtaining entry:\n${error}`);
-    }
-  }
-
-  protected execParser<T = unknown>(handler: (data: T) => Promise<T>, data: T): Promise<T> {
-    try {
-      if (!data) {
-        throw new Error('No data provided for parsing');
-      }
-      return handler(data);
-    } catch (error) {
-      throw new Error(`Error parsing the data:\n${error}`);
     }
   }
 }

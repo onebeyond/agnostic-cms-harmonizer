@@ -19,14 +19,13 @@ export abstract class AbstractAgnosticCMSHarmonizerClient extends AgnosticCMSHar
   public abstract initialize(): Promise<void>;
 
   /**
-   * Returns to the provider class methods the instanced client
+   * Returns the provider native client instance
    */
   protected abstract getClientInstance(): CmsClientInstance;
 
   /**
-   * Each provider uses a specific terminology for categorizing content
-   *
-   * The "entry" terminology has been used there as an abstraction
+   * Each provider uses a specific terminology for categorizing content.
+   * The "entry" terminology has been used there as an abstraction.
    */
   public abstract getEntry<T = unknown>({
     entryId,

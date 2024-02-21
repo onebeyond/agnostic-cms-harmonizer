@@ -53,15 +53,13 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
   }
 
   /**
-   * Returns the typed harmonizer response from an entry request.
+   * {@link AbstractAgnosticCMSHarmonizerClient#getEntry}
    * @param {ContentfulGetEntryParams} params
    * @remarks
-   * By providing the `entryId` parameter, you can fetch the data for
-   * a specific _Contentful entry_.
+   * By providing the `entryId` parameter, you can fetch the data for a specific _Contentful entry_.
    * Additionally, you can optionally specify the `locale` and `nestedLevels` parameters.
-   * The `nestedLevels` parameter determines the depth of _reference resolution_ in the
-   * entry and has a default value of __10__. You can also specify the expected data type
-   * by using a _type argument_.
+   * The `nestedLevels` parameter determines the depth of _reference resolution_ in the entry and
+   * has a default value of __10__. You can also specify the expected data type by using a _type argument_.
    * @returns {Promise<HarmonizedOutput<T>>}
    * @example
    * type MyEntry = {
