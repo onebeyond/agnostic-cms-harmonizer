@@ -7,8 +7,7 @@
 Library to handle communication with different CMSs in a user-agnostic way.
 
 ## Contribute
-
-In order to contribute to this project, you need to follow the next steps:
+To contribute to this project, you need to follow the next steps:
 
 ### Requirements
 
@@ -18,7 +17,7 @@ In order to contribute to this project, you need to follow the next steps:
 ### Contentful
 
 1. You have to create a space in contentful to run the tests.
-2. Following the instructions [here](https://www.contentful.com/developers/docs/references/authentication/#the-content-delivery-and-preview-api) to create an API key.
+2. Follow the instructions [here](https://www.contentful.com/developers/docs/references/authentication/#the-content-delivery-and-preview-api) to create an API key.
 
 ### Environment variables
 
@@ -64,6 +63,20 @@ contentful space export --config ./__tests__/exports/contentful/config.json --sp
 # If you don't have the contenful-cli installed globally
 npx contentful-cli space export --config ./__tests__/exports/contentful/config.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
 ```
+
+## Tests
+
+At this point, no further configuration is required to run the _**unit tests**_.
+```bash
+npm run test
+```
+
+More of the same, for the _**E2E**_ tests. Here it is crucial to have configured our `.env` and imported the dummy content to our space.
+```bash
+npm run test:e2e
+```
+
+The pipeline is configured to use the Contentful space managed by the _**agnostic.cms.harmonizer@proton.me**_ account during the _**E2E**_ tests execution. If the content of these tests needs to be updated in the provider, you must have access to this [vault](https://beyondsecure.onebeyond.cloud/vaults/OB-BpuUbMukgIKDSxGqmypk/secrets), otherwise, you can open an issue referencing the new content exported.
 
 ## Contributors ✨
 

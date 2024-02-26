@@ -1,0 +1,37 @@
+name: Node.js CI
+
+on:
+  workflow_dispatch:
+  push:
+
+env:
+  CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+  CONTENTFUL_SPACE: ${{ vars.CONTENTFUL_SPACE }}
+  CONTENTFUL_ENVIRONMENT: ${{ vars.CONTENTFUL_ENVIRONMENT }}
+  CONTENTFUL_ENTRY: ${{ vars.CONTENTFUL_ENTRY }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['18.x', '20.x']
+
+    steps:
+      - name: 🔐 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            cdn.contentful.com:443
+            github.com:443
+            registry.npmjs.org:443
+      - uses: actions/checkout@v4@b4ffde65f46336ab88eb53be808477a3936bae11
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm test
+      - run: npm run test:e2e
