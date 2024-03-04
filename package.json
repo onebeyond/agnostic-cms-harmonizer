@@ -55,7 +55,7 @@
     "serve": "^14.2.1",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
-    "typedoc": "^0.25.8",
+    "typedoc": "^0.25.10",
     "typescript": "^5.3.3"
   },
   "dependencies": {
