@@ -71,15 +71,4 @@ export class AgnosticCMSHarmonizerClient {
       throw new Error(`Error obtaining entries:\n${error}`);
     }
   }
-
-  protected execParser<T = unknown>(handler: (data: T) => Promise<T>, data: T): Promise<T> {
-    try {
-      if (!data) {
-        throw new Error('No data provided for parsing');
-      }
-      return handler(data);
-    } catch (error) {
-      throw new Error(`Error parsing the data:\n${error}`);
-    }
-  }
 }
