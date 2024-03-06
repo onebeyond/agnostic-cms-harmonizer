@@ -96,6 +96,25 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
     );
   }
 
+  /**
+   * {@link AbstractAgnosticCMSHarmonizerClient#getEntries}
+   * @param {ContentfulGetEntriesParams} params
+   * @remarks
+   * By providing the `collectionId` parameter, you can fetch all entries of a specific
+   * _Contentful content type_. Additionally, you can optionally specify the `locale` and `nestedLevels` parameters.
+   * The `nestedLevels` parameter determines the depth of _reference resolution_ in the entry and
+   * has a default value of __10__. You can also specify the expected data type by using a _type argument_.
+   * @returns {Promise<HarmonizedOutput<T[]>>}
+   * @example
+   * type MyEntry = {
+   * title: string;
+   * description: string;
+   * }
+   *
+   * const client = await (new HarmonizerContentfulClient({...})).initialize();
+   * const entries = await client.getEntries<MyEntry>({ collectionId: '123', locale: 'en-US' });
+   * console.log(entries); // { data: [{ title: 'My title', description: 'My description' }, ...] }
+   */
   public async getEntries<T = Record<string, unknown>>({
     collectionId,
     locale,
