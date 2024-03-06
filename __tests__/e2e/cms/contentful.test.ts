@@ -11,8 +11,9 @@ type TestEntryType = {
   questions: [
     {
       configuration: {
-        identifier: string;
-        required: boolean;
+        id?: string;
+        identifier?: string;
+        required?: boolean;
       };
       identifier: string;
       label: string;
@@ -69,6 +70,22 @@ describe('contentful', () => {
           ),
         },
       });
+    });
+    it('retrieve array of available entries in default locale (en-US)', async () => {
+      const harmonizedData = await contentful.getEntries<TestEntryType>({
+        collectionId: process.env.CONTENTFUL_CONTENT_TYPE as string,
+      });
+      expect(Array.isArray(harmonizedData.data)).toBeTruthy();
+      expect(harmonizedData).toMatchSnapshot();
+    });
+
+    it('retrieve array of available entries in given locale (es)', async () => {
+      const harmonizedData = await contentful.getEntries<TestEntryType>({
+        collectionId: process.env.CONTENTFUL_CONTENT_TYPE as string,
+        locale: 'es',
+      });
+      expect(Array.isArray(harmonizedData.data)).toBeTruthy();
+      expect(harmonizedData).toMatchSnapshot();
     });
   });
 });

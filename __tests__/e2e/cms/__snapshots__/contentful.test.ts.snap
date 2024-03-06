@@ -1,5 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`contentful should not fail retrieve array of available entries in default locale (en-US) 1`] = `
+{
+  "data": [
+    {
+      "booleanInputFieldDefaultTrue": true,
+      "jsonInputField": {
+        "objectKey": "objectValue",
+      },
+      "questions": [
+        {
+          "configuration": {
+            "identifier": "First name question configuration",
+            "required": true,
+          },
+          "identifier": "First name question",
+          "label": "First name",
+          "placeholder": "Please enter your name",
+        },
+      ],
+      "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
+      "singleMediaInputField": "https://images.ctfassets.net/tfwqn4ih0op2/36j3phOyWhdSaqhRKeLauu/131db2ba1136b43a16e1a0f4f046c6a0/banner.jpg",
+    },
+  ],
+}
+`;
+
+exports[`contentful should not fail retrieve array of available entries in given locale (es) 1`] = `
+{
+  "data": [
+    {
+      "booleanInputFieldDefaultTrue": true,
+      "jsonInputField": {
+        "objectKey": "objectValue",
+      },
+      "questions": [
+        {
+          "configuration": {
+            "identifier": "First name question configuration",
+            "required": true,
+          },
+          "identifier": "First name question",
+          "label": "Nombre",
+          "placeholder": "Por favor, introduzca su nombre",
+        },
+      ],
+      "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
+      "singleMediaInputField": "https://images.ctfassets.net/tfwqn4ih0op2/36j3phOyWhdSaqhRKeLauu/8e57bd83434abf21220c1fb5d75efdda/banner.jpg",
+    },
+  ],
+}
+`;
+
 exports[`contentful should not fail retrieve content in default locale (en-US) 1`] = `
 {
   "data": {

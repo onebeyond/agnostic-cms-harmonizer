@@ -7,10 +7,15 @@ import {
   type EntryQueries,
   type FieldsType,
   type ChainModifiers,
+  EntriesQueries,
 } from 'contentful';
 
 import { HarmonizedOutput } from '../@types';
-import { AbstractAgnosticCMSHarmonizerClient, AbstractGetEntryParams } from '../index.abstract';
+import {
+  AbstractAgnosticCMSHarmonizerClient,
+  AbstractGetEntriesParams,
+  AbstractGetEntryParams,
+} from '../index.abstract';
 
 /**
  * Type of entries that can be retrieved
@@ -32,12 +37,16 @@ export type ContentfulGetEntryParams = AbstractGetEntryParams &
     nestedLevels?: 0 | 2 | 1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
   };
 
+export type ContentfulGetEntriesParams<T> = AbstractGetEntriesParams &
+  EntriesQueries<ContentfulEntrySkeleton<T>, ChainModifiers> & {
+    locale?: string;
+    nestedLevels?: 0 | 2 | 1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  };
+
 /**
  * Contentful provider.
  */
 export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerClient {
-  protected clientInstance: ContentfulClientApi<undefined>;
-
   /**
    * @param clientParams {@link https://contentful.github.io/contentful.js/contentful/10.6.21/interfaces/CreateClientParams.html}
    */
@@ -87,6 +96,26 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
     );
   }
 
+  public async getEntries<T = Record<string, unknown>>({
+    collectionId,
+    locale,
+    nestedLevels = 10,
+    ...config
+  }: ContentfulGetEntriesParams<T>): Promise<HarmonizedOutput<T[]>> {
+    const query = {
+      ...config,
+      locale,
+      content_type: collectionId,
+      include: nestedLevels,
+    };
+    return await this.getEntriesHarmonized<T>(
+      <() => Promise<T[]>>this.getEntriesHandler?.bind(this, query),
+      <(data: T[]) => HarmonizedOutput<T[]>>this.parserHandler.bind(this),
+    );
+  }
+
+  protected clientInstance: ContentfulClientApi<undefined>;
+
   protected getClientInstance(): ContentfulClientApi<undefined> {
     return this.clientInstance;
   }
@@ -98,11 +127,25 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
     return this.getClientInstance().getEntry<ContentfulEntrySkeleton<T>>(entryId, query);
   }
 
+  private async getEntriesHandler<T = Record<string, unknown>>(
+    query?: EntriesQueries<ContentfulEntrySkeleton<T>, undefined>,
+  ): Promise<ContentfulEntry<T>[]> {
+    const entries = await this.getClientInstance().getEntries<ContentfulEntrySkeleton<T>>(query);
+    return entries.items;
+  }
+
   private parserHandler<T = Record<string, unknown>>(
-    payload: ContentfulEntry<T>,
-  ): HarmonizedOutput<string | ContentfulEntry<T> | null> {
-    const output = this.mapper<T>(payload);
-    return { data: output };
+    payload: ContentfulEntry<T> | ContentfulEntry<T>[],
+  ): HarmonizedOutput<string | ContentfulEntry<T> | ContentfulEntry<T>[] | null> {
+    if (Array.isArray(payload)) {
+      return {
+        data: payload.reduce((items, item) => {
+          return item ? items.concat(this.mapper<T>(item)) : items;
+        }, Array(0)),
+      };
+    }
+
+    return { data: this.mapper<T>(payload) };
   }
 
   private mapper<T = Record<string, unknown>>(

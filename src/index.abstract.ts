@@ -9,6 +9,13 @@ export type AbstractGetEntryParams = {
   entryId: string;
 };
 
+export type AbstractGetEntriesParams = {
+  /**
+   * The content type from the chosen provider containing the desired content
+   */
+  collectionId: string;
+};
+
 /**
  * The CMS provider class is responsible for implementing these methods, which are only defined abstractly
  */
@@ -30,4 +37,8 @@ export abstract class AbstractAgnosticCMSHarmonizerClient extends AgnosticCMSHar
   public abstract getEntry<T = unknown>({
     entryId,
   }: AbstractGetEntryParams): Promise<HarmonizedOutput<T>>;
+
+  public abstract getEntries<T = unknown>({
+    collectionId,
+  }: AbstractGetEntriesParams): Promise<HarmonizedOutput<T[]>>;
 }
