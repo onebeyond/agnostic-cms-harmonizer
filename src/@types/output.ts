@@ -1,8 +1,3 @@
-//-- Agnostic CMS Harmonizer - Output Types
-//-- version: 1.0.0
-//-- author: One Beyond
-//-- license: MIT
-
 /**
  * @summary
  * The harmonized output type that wraps the data returned from the provider client.
