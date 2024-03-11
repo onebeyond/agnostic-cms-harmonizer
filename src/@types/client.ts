@@ -1,17 +1,81 @@
 import {
-  CreateClientParams as ContentfulClientParams,
-  ContentfulClientApi,
-  ChainModifiers,
+  type BaseEntry as ContentfulBaseEntry,
+  type CreateClientParams as ContentfulClientParams,
+  type Entry as TContentfulEntry,
+  type EntryQueries as TContentfulEntryQueries,
+  type EntriesQueries as TContentfulEntriesQueries,
+  type EntrySkeletonType as TContentfulEntrySkeletonType,
+  type ContentfulClientApi as TContentfulClientApi,
+  type FieldsType as TContentfulFieldsType,
+  type ChainModifiers as TContentfulChainModifiers,
 } from 'contentful';
 
-/**
- * The types that the native clients of the different providers support in the arguments to be initialized
- * should be reflected in this type that encompasses them all
- */
-export type ClientParams = ContentfulClientParams;
+type AbstractGetEntryParams = {
+  entryId: string;
+};
 
-/**
- * This generic type allows us to instantiate the type that the client of the chosen provider returns to us
- * @typeParam T - https://contentful.github.io/contentful.js/contentful/10.6.21/types/ChainModifiers.html
- */
-export type CmsClientInstance<T extends ChainModifiers = undefined> = ContentfulClientApi<T>;
+type AbstractGetCollectionParams = {
+  collectionId: string;
+};
+
+type ClientParams = ContentfulClientParams;
+
+type ClientInstance<T extends ContentfulChainModifiers = undefined> = TContentfulClientApi<T>;
+
+type ContentfulEntry<T> = TContentfulEntry<
+  ContentfulEntrySkeletonType<T & ContentfulFieldsType>,
+  undefined,
+  string
+>;
+
+type ContentfulChainModifiers = TContentfulChainModifiers;
+
+type ContentfulEntrySkeleton<T> = ContentfulEntrySkeletonType<T>;
+
+type ContentfulEntrySkeletonType<T> = TContentfulEntrySkeletonType<T & TContentfulFieldsType>;
+
+type ContentfulEntryQueries<T> = TContentfulEntryQueries<
+  ContentfulEntrySkeleton<T> & ContentfulChainModifiers
+>;
+
+type ContentfulEntriesQueries<T> = TContentfulEntriesQueries<
+  ContentfulEntrySkeleton<T>,
+  TContentfulChainModifiers
+>;
+
+type ContentfulFieldsType = TContentfulFieldsType;
+
+type ContentfulClientApi<T> = TContentfulClientApi<T & ContentfulChainModifiers>;
+
+type ContentfulNestedLevels = 0 | 2 | 1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+
+type ContentfulGetEntryParams = AbstractGetEntryParams &
+  ContentfulEntryQueries<ContentfulChainModifiers> & {
+    locale?: string;
+    nestedLevels?: ContentfulNestedLevels;
+  };
+
+type ContentfulGetEntriesParams<T> = AbstractGetCollectionParams &
+  ContentfulEntriesQueries<ContentfulEntrySkeleton<T>> & {
+    locale?: string;
+    nestedLevels?: ContentfulNestedLevels;
+  };
+
+export {
+  AbstractGetEntryParams,
+  AbstractGetCollectionParams,
+  ContentfulBaseEntry,
+  ContentfulClientParams,
+  ContentfulChainModifiers,
+  ContentfulClientApi,
+  ContentfulEntry,
+  ContentfulEntryQueries,
+  ContentfulEntriesQueries,
+  ContentfulEntrySkeleton,
+  ContentfulEntrySkeletonType,
+  ContentfulGetEntriesParams,
+  ContentfulGetEntryParams,
+  ContentfulNestedLevels,
+  ClientParams,
+  ClientInstance,
+};

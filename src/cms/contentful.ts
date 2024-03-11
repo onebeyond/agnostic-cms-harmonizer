@@ -1,82 +1,57 @@
+import { createClient } from 'contentful';
+
 import {
-  createClient,
-  type CreateClientParams,
+  type ContentfulClientParams,
+  type ContentfulEntry,
+  type ContentfulGetEntriesParams,
+  type ContentfulGetEntryParams,
   type ContentfulClientApi,
-  type Entry,
-  type EntrySkeletonType,
-  type EntryQueries,
-  type FieldsType,
-  type ChainModifiers,
-  EntriesQueries,
-} from 'contentful';
+  type HarmonizedOutput,
+  type ContentfulEntrySkeleton,
+} from '../@types';
+import { AbstractProvider } from '../index.abstract';
+import { HarmonizedClient } from '../index';
 
-import { HarmonizedOutput } from '../@types';
-import {
-  AbstractAgnosticCMSHarmonizerClient,
-  AbstractGetEntriesParams,
-  AbstractGetEntryParams,
-} from '../index.abstract';
+type ContentfulResource =
+  (typeof ContentfulClient.CF_RESOURCE)[keyof typeof ContentfulClient.CF_RESOURCE];
 
 /**
- * Type of entries that can be retrieved
- * @internal
+ * @summary
+ * The Contentful client that extends the {@link HarmonizedClient}.
  */
-const ContentfulResourceType = {
-  ASSET: 'Asset',
-  ENTRY: 'Entry',
-  LINK: 'Link',
-} as const;
-
-export type ContentfulEntry<T> = Entry<EntrySkeletonType<T & FieldsType>, undefined, string>;
-
-export type ContentfulEntrySkeleton<T> = EntrySkeletonType<T & FieldsType>;
-
-export type ContentfulGetEntryParams = AbstractGetEntryParams &
-  EntryQueries<ChainModifiers> & {
-    locale?: string;
-    nestedLevels?: 0 | 2 | 1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-  };
-
-export type ContentfulGetEntriesParams<T> = AbstractGetEntriesParams &
-  EntriesQueries<ContentfulEntrySkeleton<T>, ChainModifiers> & {
-    locale?: string;
-    nestedLevels?: 0 | 2 | 1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-  };
-
-/**
- * Contentful provider.
- */
-export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerClient {
-  /**
-   * @param clientParams {@link https://contentful.github.io/contentful.js/contentful/10.6.21/interfaces/CreateClientParams.html}
-   */
-  constructor(clientParams: CreateClientParams) {
+export class ContentfulClient extends HarmonizedClient implements AbstractProvider {
+  constructor(clientParams: ContentfulClientParams) {
     super(clientParams);
-    this.clientInstance = Object.create(null);
   }
 
-  public async initialize(): Promise<void> {
-    this.clientInstance = await this.agnosticCmsInitialize(async () =>
+  /**
+   * @summary
+   * The Contentful resource types.
+   */
+  public static CF_RESOURCE = {
+    ASSET: 'Asset',
+    ENTRY: 'Entry',
+    LINK: 'Link',
+  } as const;
+
+  /**
+   * {@inheritDoc index.HarmonizedClient#initialize}
+   */
+  public async init() {
+    await this.initialize<ContentfulClientApi<undefined>>(async () =>
       createClient(this.clientParams),
     );
   }
 
   /**
-   * {@link AbstractAgnosticCMSHarmonizerClient#getEntry}
+   * {@link AbstractProvider.getEntry}
    * @param {ContentfulGetEntryParams} params
-   * @remarks
-   * By providing the `entryId` parameter, you can fetch the data for a specific _Contentful entry_.
-   * Additionally, you can optionally specify the `locale` and `nestedLevels` parameters.
-   * The `nestedLevels` parameter determines the depth of _reference resolution_ in the entry and
-   * has a default value of __10__. You can also specify the expected data type by using a _type argument_.
-   * @returns {Promise<HarmonizedOutput<T>>}
    * @example
    * type MyEntry = {
    *  title: string;
    *  description: string;
    * }
    *
-   * const client = await (new HarmonizerContentfulClient({...})).initialize();
    * const entry = await client.getEntry<MyEntry>({ entryId: '123', locale: 'en-US' });
    * console.log(entry); // { data: { title: 'My title', description: 'My description' } }
    */
@@ -85,114 +60,87 @@ export class HarmonizerContentfulClient extends AbstractAgnosticCMSHarmonizerCli
     locale,
     nestedLevels = 10,
   }: ContentfulGetEntryParams): Promise<HarmonizedOutput<T>> {
-    const query = {
-      locale,
-      include: nestedLevels,
-    };
-
-    return await this.getEntryHarmonized<T>(
-      <() => Promise<T>>this.getEntryHandler?.bind(this, entryId, query),
-      <(data: T) => HarmonizedOutput<T>>this.parserHandler.bind(this),
+    return this.harmonizeEntry<T>(
+      () =>
+        this.getClientInstance().getEntry<ContentfulEntrySkeleton<T>>(entryId, {
+          locale,
+          include: nestedLevels,
+        }),
+      <(data: T) => HarmonizedOutput<T>>this.parseItem.bind(this),
     );
   }
 
   /**
-   * {@link AbstractAgnosticCMSHarmonizerClient#getEntries}
+   * {@link AbstractProvider.getCollection}
    * @param {ContentfulGetEntriesParams} params
-   * @remarks
-   * By providing the `collectionId` parameter, you can fetch all entries of a specific
-   * _Contentful content type_. Additionally, you can optionally specify the `locale` and `nestedLevels` parameters.
-   * The `nestedLevels` parameter determines the depth of _reference resolution_ in the entry and
-   * has a default value of __10__. You can also specify the expected data type by using a _type argument_.
-   * @returns {Promise<HarmonizedOutput<T[]>>}
    * @example
    * type MyEntry = {
-   * title: string;
-   * description: string;
+   *   title: string;
+   *   description: string;
    * }
    *
-   * const client = await (new HarmonizerContentfulClient({...})).initialize();
-   * const entries = await client.getEntries<MyEntry>({ collectionId: '123', locale: 'en-US' });
+   * const entries = await client.getCollection<MyEntry>({ collectionId: '123', locale: 'en-US' });
    * console.log(entries); // { data: [{ title: 'My title', description: 'My description' }, ...] }
    */
-  public async getEntries<T = Record<string, unknown>>({
+  public async getCollection<T = Record<string, unknown>>({
     collectionId,
     locale,
     nestedLevels = 10,
     ...config
   }: ContentfulGetEntriesParams<T>): Promise<HarmonizedOutput<T[]>> {
-    const query = {
-      ...config,
-      locale,
-      content_type: collectionId,
-      include: nestedLevels,
-    };
-    return await this.getEntriesHarmonized<T>(
-      <() => Promise<T[]>>this.getEntriesHandler?.bind(this, query),
-      <(data: T[]) => HarmonizedOutput<T[]>>this.parserHandler.bind(this),
+    return this.harmonizeCollection<T>(
+      () =>
+        this.getClientInstance()
+          .getEntries<ContentfulEntrySkeleton<T>>({
+            ...config,
+            locale,
+            content_type: collectionId,
+            include: nestedLevels,
+          })
+          .then(({ items }) => items as ContentfulEntry<T>[]),
+      <(data: T[]) => HarmonizedOutput<T[]>>this.parseItem.bind(this),
     );
   }
 
-  protected clientInstance: ContentfulClientApi<undefined>;
-
-  protected getClientInstance(): ContentfulClientApi<undefined> {
-    return this.clientInstance;
-  }
-
-  private async getEntryHandler<T = Record<string, unknown>>(
-    entryId: string,
-    query?: EntryQueries<undefined>,
-  ): Promise<ContentfulEntry<T>> {
-    return this.getClientInstance().getEntry<ContentfulEntrySkeleton<T>>(entryId, query);
-  }
-
-  private async getEntriesHandler<T = Record<string, unknown>>(
-    query?: EntriesQueries<ContentfulEntrySkeleton<T>, undefined>,
-  ): Promise<ContentfulEntry<T>[]> {
-    const entries = await this.getClientInstance().getEntries<ContentfulEntrySkeleton<T>>(query);
-    return entries.items;
-  }
-
-  private parserHandler<T = Record<string, unknown>>(
+  private parseItem<T = Record<string, unknown>>(
     payload: ContentfulEntry<T> | ContentfulEntry<T>[],
-  ): HarmonizedOutput<string | ContentfulEntry<T> | ContentfulEntry<T>[] | null> {
-    if (Array.isArray(payload)) {
-      return {
-        data: payload.reduce((items, item) => {
-          return item ? items.concat(this.mapper<T>(item)) : items;
-        }, Array(0)),
-      };
-    }
-
-    return { data: this.mapper<T>(payload) };
+  ): HarmonizedOutput<T> | HarmonizedOutput<T[]> {
+    return {
+      data:
+        !Array.isArray(payload) ?
+          this.mapItem<T>(payload)
+        : payload.reduce(
+            (items, item) => (item ? items.concat(this.mapItem<T>(item)) : items),
+            Array(0) as T[],
+          ),
+    } as HarmonizedOutput<T> | HarmonizedOutput<T[]>;
   }
 
-  private mapper<T = Record<string, unknown>>(
-    item: ContentfulEntry<T>,
-  ): string | ContentfulEntry<T> | null {
-    switch (item?.sys?.type + '') {
-      case ContentfulResourceType.ENTRY:
-        return Object.entries(item.fields).reduce((acc, [key, value]) => {
-          if (Array.isArray(value)) {
+  private mapItem<T = Record<string, unknown>>(item: ContentfulEntry<T>): T {
+    return (
+      {
+        [ContentfulClient.CF_RESOURCE.ASSET]:
+          Object(item.fields?.file)?.url ? `https:${Object(item.fields.file).url}` : null,
+
+        [ContentfulClient.CF_RESOURCE.LINK]: Object.assign(Object.create(null), {
+          id: Object(item).sys?.id,
+        }),
+        [ContentfulClient.CF_RESOURCE.ENTRY]: Object.entries(Object(item).fields || {}).reduce(
+          (acc, [key, value]) => {
+            if (Array.isArray(value)) {
+              return {
+                ...acc,
+                [key]: value.map((valueItem) => this.mapItem(valueItem || Object.create(null))),
+              };
+            }
             return {
               ...acc,
-              [key]: value.map((valueItem) => this.mapper<T>(valueItem || Object.create(null))),
+              [key]: this.mapItem(value || Object.create(null)),
             };
-          }
-          return {
-            ...acc,
-            [key]: this.mapper<T>(value || Object.create(null)),
-          };
-        }, Object.create(null));
-
-      case ContentfulResourceType.ASSET:
-        return Object(item.fields?.file)?.url ? `https:${Object(item.fields.file).url}` : null;
-
-      case ContentfulResourceType.LINK:
-        return Object.assign(Object.create(null), { id: item.sys.id });
-
-      default:
-        return item;
-    }
+          },
+          Object.create(null),
+        ),
+      }[(Object(item || {}).sys?.type || '') as ContentfulResource] || item
+    );
   }
 }
