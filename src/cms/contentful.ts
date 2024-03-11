@@ -59,12 +59,14 @@ export class ContentfulClient extends HarmonizedClient implements AbstractProvid
     entryId,
     locale,
     nestedLevels = 10,
+    ...config
   }: ContentfulGetEntryParams): Promise<HarmonizedOutput<T>> {
     return this.harmonizeEntry<T>(
       () =>
         this.getClientInstance().getEntry<ContentfulEntrySkeleton<T>>(entryId, {
           locale,
           include: nestedLevels,
+          ...config,
         }),
       <(data: T) => HarmonizedOutput<T>>this.parseItem.bind(this),
     );
