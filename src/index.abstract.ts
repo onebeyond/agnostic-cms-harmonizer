@@ -1,33 +1,29 @@
-import { type HarmonizedOutput, type CmsClientInstance } from './@types';
+import {
+  type HarmonizedOutput,
+  type ClientInstance,
+  type ClientParams,
+  type AbstractGetEntryParams,
+  type AbstractGetCollectionParams,
+} from './@types';
 
-import { AgnosticCMSHarmonizerClient } from './index';
+export abstract class AbstractClient {
+  protected abstract clientParams: ClientParams;
 
-export type AbstractGetEntryParams = {
-  /**
-   * The ID from the chosen provider entry containing the desired content
-   */
-  entryId: string;
-};
+  protected abstract clientInstance: ClientInstance;
 
-/**
- * The CMS provider class is responsible for implementing these methods, which are only defined abstractly
- */
-export abstract class AbstractAgnosticCMSHarmonizerClient extends AgnosticCMSHarmonizerClient {
-  /**
-   * Typically this is going to define a singleton client instance
-   */
-  public abstract initialize(): Promise<void>;
+  protected abstract initialize<T = unknown>(handler?: () => Promise<T>): Promise<void>;
 
-  /**
-   * Returns the provider native client instance
-   */
-  protected abstract getClientInstance(): CmsClientInstance;
+  protected abstract getClientInstance(): ClientInstance;
+}
 
-  /**
-   * Each provider uses a specific terminology for categorizing content.
-   * The "entry" terminology has been used there as an abstraction.
-   */
+export abstract class AbstractProvider {
+  public abstract init(): Promise<void>;
+
   public abstract getEntry<T = unknown>({
     entryId,
   }: AbstractGetEntryParams): Promise<HarmonizedOutput<T>>;
+
+  public abstract getCollection<T = unknown>({
+    collectionId,
+  }: AbstractGetCollectionParams): Promise<HarmonizedOutput<T[]>>;
 }

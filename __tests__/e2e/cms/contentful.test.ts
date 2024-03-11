@@ -1,7 +1,7 @@
 import { config as configDotenv } from 'dotenv';
 configDotenv();
 
-import { HarmonizerContentfulClient } from '../../../src/cms/contentful';
+import { ContentfulClient } from '../../../src/cms/contentful';
 
 type TestEntryType = {
   booleanInputFieldDefaultTrue: boolean;
@@ -11,8 +11,9 @@ type TestEntryType = {
   questions: [
     {
       configuration: {
-        identifier: string;
-        required: boolean;
+        id?: string;
+        identifier?: string;
+        required?: boolean;
       };
       identifier: string;
       label: string;
@@ -24,15 +25,15 @@ type TestEntryType = {
 };
 
 describe('contentful', () => {
-  let contentful: HarmonizerContentfulClient;
+  let contentful: ContentfulClient;
 
   beforeAll(async () => {
-    contentful = new HarmonizerContentfulClient({
+    contentful = new ContentfulClient({
       accessToken: process.env.CONTENTFUL_ACCESS_TOKEN as string,
       environment: process.env.CONTENTFUL_ENVIRONMENT as string,
       space: process.env.CONTENTFUL_SPACE as string,
     });
-    await contentful.initialize();
+    await contentful.init();
   });
 
   describe('should not fail', () => {
@@ -69,6 +70,22 @@ describe('contentful', () => {
           ),
         },
       });
+    });
+    it('retrieve array of available entries in default locale (en-US)', async () => {
+      const harmonizedData = await contentful.getCollection<TestEntryType>({
+        collectionId: process.env.CONTENTFUL_CONTENT_TYPE as string,
+      });
+      expect(Array.isArray(harmonizedData.data)).toBeTruthy();
+      expect(harmonizedData).toMatchSnapshot();
+    });
+
+    it('retrieve array of available entries in given locale (es)', async () => {
+      const harmonizedData = await contentful.getCollection<TestEntryType>({
+        collectionId: process.env.CONTENTFUL_CONTENT_TYPE as string,
+        locale: 'es',
+      });
+      expect(Array.isArray(harmonizedData.data)).toBeTruthy();
+      expect(harmonizedData).toMatchSnapshot();
     });
   });
 });

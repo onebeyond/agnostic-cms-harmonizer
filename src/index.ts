@@ -1,62 +1,89 @@
-import { type HarmonizedOutput, type ClientParams, type CmsClientInstance } from './@types';
+import { type HarmonizedOutput, type ClientParams, type ClientInstance } from './@types';
+import { AbstractClient } from './index.abstract';
+
+const ERROR_MSG = {
+  INIT: 'Failed to initialize CMS client!',
+  ENTRY: 'Error obtaining entry!',
+  COLLECTION: 'Error obtaining collection!',
+};
 
 /**
- * Parent class for providers implementing it extension way
+ * @summary
+ * The base client class that all provider clients should extend.
  *
- * @remark The objective of this class is to implement the methods that will mostly be used from the CMS provider class.
- * No matter which provider you are implementing, the needs they cover are sure to be compatible with the provider's native client.
+ * @example
  *
- * Any CMS provider must extend this class to propagate its agnostic interface.
+ * Client:
+ * ```ts
+ * import { createClient } from 'native-client';
+ *
+ * class MyProviderClient extends HarmonizerClient {
+ *   constructor(clientParams: ClientParams) {
+ *     super(clientParams);
+ *     this.clientInstance = Object.create(null);
+ *   }
+ *
+ *   async init() {
+ *     await this.initialize(async () => createClient(this.clientParams));
+ *   }
+ * }
+ * ```
+ *
+ * Consume:
+ * ```ts
+ * import { MyProviderClient } from 'my-provider-client';
+ *
+ * const client = new MyProviderClient({
+ *   // ...clientParams
+ * });
+ *
+ * await client.init();
+ *
+ * const entry = await client.getEntry<MyEntry>({ entryId: '123' });
  */
-export class AgnosticCMSHarmonizerClient {
-  /**
-   * The client parameters for instancing theclient
-   */
-  protected clientParams!: ClientParams;
-  /**
-   * One of the allowed provider client instance type
-   */
-  protected clientInstance!: CmsClientInstance;
-
-  /**
-   * Creates an instance of {@link AgnosticCMSHarmonizerClient}.
-   * @param clientParams {@link ClientParams}
-   */
+export class HarmonizedClient extends AbstractClient {
   constructor(clientParams: ClientParams) {
+    super();
     this.clientParams = clientParams;
   }
 
-  /**
-   * Only the implementation of the abstract method from the provider class should reference on to this.
-   * @param handler a function usually executing the native provider library initialize way
-   * @returns The handler generated output
-   * @throws An error with a minimal description, followed by the unmodified error of the
-   * provided function
-   */
-  protected async agnosticCmsInitialize<T = unknown>(handler: () => T): Promise<T> {
+  protected async initialize<T>(handler?: () => Promise<T>) {
     try {
-      return await handler();
+      this.clientInstance = (await handler?.()) || Object.create(null);
     } catch (error) {
-      throw new Error(`Failed to initialize cms client\n${error}`);
+      throw new Error(`${ERROR_MSG.INIT}\n${error}`);
     }
   }
 
-  /**
-   * {@inheritDoc index.AgnosticCMSHarmonizerClient#agnosticCmsInitialize}
-   * @param getEntryHandler native provider library method for obtaining the content
-   * @param parserHandler parse the obtained entry data, since each provider returns the entries with a different format
-   * @returns The entry data formatted with the generic output format. Otherwise an error would have occurred
-   * @throws Error obtaining the entry or subsequently parsing the data
-   */
-  protected async getEntryHarmonized<T = Record<string, unknown>>(
-    getEntryHandler: () => Promise<T>,
-    parserHandler: (data: Awaited<ReturnType<typeof getEntryHandler>>) => HarmonizedOutput<T>,
+  protected clientParams!: ClientParams;
+
+  protected clientInstance!: ClientInstance;
+
+  protected getClientInstance(): ClientInstance {
+    return this.clientInstance;
+  }
+
+  protected async harmonizeEntry<T = Record<string, unknown>>(
+    handler: () => Promise<unknown>,
+    parse: (data: T) => HarmonizedOutput<T>,
   ): Promise<HarmonizedOutput<T>> {
     try {
-      const data = await getEntryHandler();
-      return parserHandler(data);
+      const data = await handler();
+      return parse(data as T);
     } catch (error) {
-      throw new Error(`Error obtaining entry:\n${error}`);
+      throw new Error(`${ERROR_MSG.ENTRY}\n${error}`);
+    }
+  }
+
+  protected async harmonizeCollection<T = Record<string, unknown>>(
+    handler: () => Promise<unknown[]>,
+    parse: (data: T[]) => HarmonizedOutput<T[]>,
+  ): Promise<HarmonizedOutput<T[]>> {
+    try {
+      const data = await handler();
+      return parse(data as T[]);
+    } catch (error) {
+      throw new Error(`${ERROR_MSG.COLLECTION}\n${error}`);
     }
   }
 }

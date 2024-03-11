@@ -1,5 +1,19 @@
 /**
- * The objective of every provider is to match this interface after parsing the data from the entries with the custom formatters.
+ * @summary
+ * The harmonized output type that wraps the data returned from the provider client.
+ *
+ * @example
+ * #### Unified output
+ *
+ * ```ts
+ * type MyEntry = {
+ *   title: string;
+ *   description: string;
+ * }
+ *
+ * const entry = await client.getEntry<MyEntry>({ entryId: '123' });
+ * console.log(entry); // { data: { title: 'My title', description: 'My description' } }
+ * ```
  */
 export type HarmonizedOutput<T> = {
   data: T;
