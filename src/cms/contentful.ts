@@ -1,3 +1,5 @@
+// Copyright (c) One Beyond. All rights reserved. Licensed under the MIT license.
+
 import { createClient } from 'contentful';
 
 import {
@@ -16,8 +18,34 @@ type ContentfulResource =
   (typeof ContentfulClient.CF_RESOURCE)[keyof typeof ContentfulClient.CF_RESOURCE];
 
 /**
- * @summary
  * The Contentful client that extends the {@link HarmonizedClient}.
+ *
+ * @remarks
+ * This class offers a foundational implementation for initializing the Contentful client
+ * instance and accessing it.
+ *
+ * It provides the provider-specific methods for making requests to the Contentful client
+ * and harmonizing the entry and collection data to produce {@link HarmonizedOutput | HarmonizedOutput}.
+ *
+ * The Contetful CLI provides a utility for generating TypeScript types from the Contentful
+ * content models. This document does not cover the process of generating the TypeScript types
+ * from the Contentful content models, but you can find more information about it in the
+ * Contentful [documentation](https://www.npmjs.com/package/contentful-typescript-codegen).
+ *
+ * @example
+ * ```ts
+ * import { ContentfulClient } from '@onebeyond/agnostic-cms-harmonizer';
+ *
+ * const client = new ContentfulClient({
+ *   accessToken,
+ *   space,
+ *   environment,
+ * });
+ *
+ * await client.init();
+ *
+ * const entry = await client.getEntry<MyEntry>({ entryId: '123' });
+ * console.log(entry); // { data: { title: 'My title', description: 'My description' } }
  */
 export class ContentfulClient extends HarmonizedClient implements AbstractProvider {
   constructor(clientParams: ContentfulClientParams) {
@@ -25,8 +53,11 @@ export class ContentfulClient extends HarmonizedClient implements AbstractProvid
   }
 
   /**
-   * @summary
    * The Contentful resource types.
+   *
+   * @remarks
+   * The Contentful resource types are used to identify the type of the resource
+   * returned from the Contentful client.
    */
   public static CF_RESOURCE = {
     ASSET: 'Asset',
@@ -44,12 +75,20 @@ export class ContentfulClient extends HarmonizedClient implements AbstractProvid
   }
 
   /**
-   * {@link AbstractProvider.getEntry}
-   * @param {ContentfulGetEntryParams} params
+   * Implementation of the Contentful variant of {@link AbstractProvider.getEntry | getEntry} method.
+   *
+   * @param config - The configuration object for the getEntry method.
+   *
+   * @remarks
+   * The getEntry method serves to retrieve a single entry from the Contentful client. It takes the
+   * entry ID along with any supplementary configuration options supported by the Contentful client.
+   *
+   * This method returns a promise that resolves to the entry data formatted in a harmonized manner.
+   *
    * @example
    * type MyEntry = {
-   *  title: string;
-   *  description: string;
+   *   title: string;
+   *   description: string;
    * }
    *
    * const entry = await client.getEntry<MyEntry>({ entryId: '123', locale: 'en-US' });
@@ -73,8 +112,17 @@ export class ContentfulClient extends HarmonizedClient implements AbstractProvid
   }
 
   /**
-   * {@link AbstractProvider.getCollection}
-   * @param {ContentfulGetEntriesParams} params
+   * Implementation of the Contentful variant of {@link AbstractProvider.getCollection | getCollection} method.
+   *
+   * @param config - The configuration object for the getEntries method.
+   *
+   * @remarks
+   * The getCollection method serves to retrieve a collection of entries from the Contentful client. It takes the
+   * content_type (collectionId) paramter along with any supplementary configuration options supported by the
+   * Contentful client.
+   *
+   * This method returns a promise that resolves to the collection data formatted in a harmonized manner.
+   *
    * @example
    * type MyEntry = {
    *   title: string;

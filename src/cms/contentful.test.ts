@@ -1,3 +1,5 @@
+// Copyright (c) One Beyond. All rights reserved. Licensed under the MIT license.
+
 const MOCK_ACCESS_TOKEN = 'mock_token';
 const MOCK_SPACE = 'mock_space';
 
