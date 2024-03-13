@@ -194,6 +194,18 @@ export class HarmonizedClient extends AbstractClient {
    * @param parse - The parse function to be called to harmonize the collection data.
    * @returns The harmonized collection data.
    * @throws Error if no client instance is found.
+   *
+   * @example
+   * ```ts
+   * class MyProviderClient {
+   *   public async getCollection<T>(): Promise<HarmonizedOutput<T[]>> {
+   *     return this.harmonizeCollection(
+   *       async () => this.getClientInstance().getCollection(collectionId),
+   *       this.parseCollection.bind(this),
+   *     );
+   *   }
+   * }
+   * ```
    */
   protected async harmonizeCollection<T = Record<string, unknown>>(
     handler: () => Promise<unknown[]>,
