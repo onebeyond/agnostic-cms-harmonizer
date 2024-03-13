@@ -1,3 +1,5 @@
+// Copyright (c) One Beyond. All rights reserved. Licensed under the MIT license.
+
 import {
   type BaseEntry as ContentfulBaseEntry,
   type CreateClientParams as ContentfulClientParams,
