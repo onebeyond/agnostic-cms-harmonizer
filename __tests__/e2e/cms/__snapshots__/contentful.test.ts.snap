@@ -20,7 +20,7 @@ exports[`contentful should not fail retrieve array of available entries in defau
         },
       ],
       "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
-      "singleMediaInputField": "https://images.ctfassets.net/tfwqn4ih0op2/36j3phOyWhdSaqhRKeLauu/131db2ba1136b43a16e1a0f4f046c6a0/banner.jpg",
+      "singleMediaInputField": StringMatching /\\^https:\\\\/\\\\/images\\\\\\.ctfassets\\\\\\.net\\\\/\\.\\+\\\\/banner\\\\\\.jpg\\$/,
     },
   ],
 }
@@ -46,7 +46,7 @@ exports[`contentful should not fail retrieve array of available entries in given
         },
       ],
       "simpleShortInputTextAreaOne": "Amidst the chaos of dreams, a whisper of serenity finds its way.",
-      "singleMediaInputField": "https://images.ctfassets.net/tfwqn4ih0op2/36j3phOyWhdSaqhRKeLauu/8e57bd83434abf21220c1fb5d75efdda/banner.jpg",
+      "singleMediaInputField": StringMatching /\\^https:\\\\/\\\\/images\\\\\\.ctfassets\\\\\\.net\\\\/\\.\\+\\\\/banner\\\\\\.jpg\\$/,
     },
   ],
 }

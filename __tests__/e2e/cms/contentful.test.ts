@@ -76,7 +76,15 @@ describe('contentful', () => {
         collectionId: process.env.CONTENTFUL_CONTENT_TYPE as string,
       });
       expect(Array.isArray(harmonizedData.data)).toBeTruthy();
-      expect(harmonizedData).toMatchSnapshot();
+      expect(harmonizedData).toMatchSnapshot({
+        data: [
+          {
+            singleMediaInputField: expect.stringMatching(
+              /^https:\/\/images\.ctfassets\.net\/.+\/banner\.jpg$/,
+            ),
+          },
+        ],
+      });
     });
 
     it('retrieve array of available entries in given locale (es)', async () => {
@@ -85,7 +93,15 @@ describe('contentful', () => {
         locale: 'es',
       });
       expect(Array.isArray(harmonizedData.data)).toBeTruthy();
-      expect(harmonizedData).toMatchSnapshot();
+      expect(harmonizedData).toMatchSnapshot({
+        data: [
+          {
+            singleMediaInputField: expect.stringMatching(
+              /^https:\/\/images\.ctfassets\.net\/.+\/banner\.jpg$/,
+            ),
+          },
+        ],
+      });
     });
   });
 });
