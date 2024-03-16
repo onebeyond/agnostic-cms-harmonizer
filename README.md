@@ -3,7 +3,7 @@
 An agnostic library to handle communication with different CMSs in a user-agnostic way.
 
 <p align="center">
-  <img src="https://badge.fury.io/js/@onebeyond%2Fagnostic-cms-harmonizer.svg)](https://badge.fury.io/js/@onebeyond%2Fagnostic-cms-harmonizer">
+  <img src="https://badge.fury.io/js/@onebeyond%2Fagnostic-cms-harmonizer.svg" />
   <a href="https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square" target="_blank"><img src="https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square" alt="all-contributors" /></a>
 </p>
 
