@@ -1,6 +1,6 @@
-# Harmonizer
+# Agnostic CMS Harmonizer
 
-An agnostic library to handle communication with different CMSs in a user-agnostic way.
+An agnostic library to handle communication with multiple CMS via _harmonized_ providers.
 
 ![NPM Version](https://img.shields.io/npm/v/%40onebeyond%2Fagnostic-cms-harmonizer)
 ![GitHub Release Date](https://img.shields.io/github/release-date/onebeyond/agnostic-cms-harmonizer)
