@@ -29,16 +29,21 @@ An agnostic library to handle communication with different CMSs in a user-agnost
 
 ## Development
 
-### Environment variables
+### CLI
+Install [Contentful CLI](https://www.contentful.com/developers/docs/tutorials/cli/import-and-export/#requirements) or alternatively use `npx contentful`
 
-Create a `.env` file in the root of the project with the following content:
+### Environment Variables
 
-```bash 
-CONTENTFUL_ACCESS_TOKEN=your_access_token
-CONTENTFUL_ENVIRONMENT=your_environment
-CONTENTFUL_SPACE=your_space
-CONTENTFUL_ENTRY=your_entry
-```
+ 1. You have to create a space in contentful to run the tests.
+ 2. Follow the instructions [here](https://www.contentful.com/developers/docs/references/authentication/#the-content-delivery-and-preview-api) to create an API key.
+ 3. Setup your `.env` file as follows
+
+ ```
+ CONTENTFUL_ACCESS_TOKEN=your_access_token
+ CONTENTFUL_ENVIRONMENT=your_environment
+ CONTENTFUL_SPACE=your_space
+ CONTENTFUL_ENTRY=your_entry
+ ```
 
 ### Import dummy content to your space
 
