@@ -2,14 +2,18 @@
 
 An agnostic library to handle communication with different CMSs in a user-agnostic way.
 
-<p align="center">
-  <img src="https://badge.fury.io/js/@onebeyond%2Fagnostic-cms-harmonizer.svg" />
-  <a href="https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square" target="_blank"><img src="https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square" alt="all-contributors" /></a>
-</p>
+![NPM Version](https://img.shields.io/npm/v/%40onebeyond%2Fagnostic-cms-harmonizer)
+![GitHub Release Date](https://img.shields.io/github/release-date/onebeyond/agnostic-cms-harmonizer)
+
+![NPM Downloads](https://img.shields.io/npm/dt/%40onebeyond%2Fagnostic-cms-harmonizer)
+![all contributors](https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square)
+![LICENSE](https://img.shields.io/npm/l/%40onebeyond%2Fagnostic-cms-harmonizer)
+![dependencies](https://img.shields.io/librariesio/github/onebeyond/agnostic-cms-harmonizer)
+![NPM Unpacked Size](https://img.shields.io/npm/unpacked-size/%40onebeyond%2Fagnostic-cms-harmonizer)
 
 ## [Documentation](https://onebeyond.github.io/agnostic-cms-harmonizer)
 
-## TL;DR
+### TL;DR
 
 ```ts
  import { ContentfulClient } from '@onebeyond/agnostic-cms-harmonizer';
@@ -23,9 +27,28 @@ An agnostic library to handle communication with different CMSs in a user-agnost
  await client.init();
 
  const entry = await client.getEntry<MyEntry>({ entryId: '123' });
- console.log(entry); // { data: { title: 'My title', description: 'My description' } }
+
+ const collection = await client.getCollection<MyCollection>({ collectionId: '123' });
 ```
 
+###
+The library exposes a common interface for multiple CMSs and outputs [harmonized data](https://onebeyond.github.io/agnostic-cms-harmonizer/types/_types_output.HarmonizedOutput.html) instead raw responses.
+
+Each CMS [provider](https://onebeyond.github.io/agnostic-cms-harmonizer/classes/index_abstract.AbstractProvider.html) exposes the [`getEntry`](https://onebeyond.github.io/agnostic-cms-harmonizer/classes/index_abstract.AbstractProvider.html#getEntry) and [`getCollection`](https://onebeyond.github.io/agnostic-cms-harmonizer/classes/index_abstract.AbstractProvider.html#getCollection) methods to request one or multiple entries accordingly.
+
+First, supply the vendor-related configuration parameters to the constructor:
+
+```ts
+const cmsClient = new CmsClient(vendorConfigurationObject)
+```
+
+The client instance _must_ call the `init()` method to configure the provider before attempting to request data from the CMS:
+
+```ts
+await client.init();
+```
+
+Enjoy!
 
 ## Development
 
