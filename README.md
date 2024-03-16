@@ -1,26 +1,86 @@
-# Agnostic CMS harmonizer
+# Harmonizer
+
+An agnostic library to handle communication with different CMSs in a user-agnostic way.
 
 <p align="center">
+  <img src="https://badge.fury.io/js/@onebeyond%2Fagnostic-cms-harmonizer.svg)](https://badge.fury.io/js/@onebeyond%2Fagnostic-cms-harmonizer">
   <a href="https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square" target="_blank"><img src="https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square" alt="all-contributors" /></a>
 </p>
 
-Library to handle communication with different CMSs in a user-agnostic way.
+## [Documentation](https://onebeyond.github.io/agnostic-cms-harmonizer)
 
-## Contribute
-To contribute to this project, you need to follow the next steps:
+## TL;DR
 
-## Tests
+```ts
+ import { ContentfulClient } from '@onebeyond/agnostic-cms-harmonizer';
+ 
+ const client = new ContentfulClient({
+   accessToken,
+   space,
+   environment,
+ });
 
-At this point, no further configuration is required to run the _**unit tests**_.
-```bash
-npm run test
+ await client.init();
+
+ const entry = await client.getEntry<MyEntry>({ entryId: '123' });
+ console.log(entry); // { data: { title: 'My title', description: 'My description' } }
 ```
 
-More of the same, for the _**E2E**_ tests. Here it is crucial to have configured our `.env` and imported the dummy content to our space.
+
+## Development
+
+### Environment variables
+
+Create a `.env` file in the root of the project with the following content:
+
+```bash 
+CONTENTFUL_ACCESS_TOKEN=your_access_token
+CONTENTFUL_ENVIRONMENT=your_environment
+CONTENTFUL_SPACE=your_space
+CONTENTFUL_ENTRY=your_entry
+```
+
+### Import dummy content to your space
+
+To run the `e2e` tests you need to be authenticated in your contentful account and [import](https://www.contentful.com/developers/docs/tutorials/cli/import-and-export/#importing-content) the dummy content into the space you created before. The content you need to import is located at `__tests__/exports/contentful/agnostic-cms-harmonizer_space.json` and should not be updated.
+
+To log in to your contentful account run the following command and follow the instructions in the terminal:
+
 ```bash
+# If you have the contenful-cli installed globally
+contenful login
+
+# If you don't have the contenful-cli installed globally
+npx contentful-cli login
+```
+
+To import the dummy content run the following command:
+
+```bash
+# If you have the contenful-cli installed globally
+contentful space import --content-file __tests__/exports/contentful/agnostic-cms-harmonizer_space.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
+
+# If you don't have the contenful-cli installed globally
+npx contentful-cli space import --content-file __tests__/exports/contentful/agnostic-cms-harmonizer_space.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
+```
+
+There is also a  located at `./__tests__/exports/contentful/config.json` in case you need to [export](https://www.contentful.com/developers/docs/tutorials/cli/import-and-export/#exporting-content) your space's content for any reason. You just need to run the following command:
+
+```bash
+# If you have the contenful-cli installed globally
+contentful space export --config ./__tests__/exports/contentful/config.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
+
+# If you don't have the contenful-cli installed globally
+npx contentful-cli space export --config ./__tests__/exports/contentful/config.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
+```
+
+```sh
+npm run test
+
 npm run test:e2e
 ```
 
+### Content Update
 The pipeline is configured to use the Contentful space managed by the _**agnostic.cms.harmonizer@proton.me**_ account during the _**E2E**_ tests execution. If the content of these tests needs to be updated in the provider, you must have access to this [vault](https://beyondsecure.onebeyond.cloud/vaults/OB-BpuUbMukgIKDSxGqmypk/secrets), otherwise, you can open an issue referencing the new content exported.
 
 ## Contributors ✨
