@@ -11,7 +11,7 @@ An agnostic library to handle communication with multiple CMS in an agnostic way
 ![dependencies](https://img.shields.io/librariesio/github/onebeyond/agnostic-cms-harmonizer)
 ![NPM Unpacked Size](https://img.shields.io/npm/unpacked-size/%40onebeyond%2Fagnostic-cms-harmonizer)
 
-Find the latest package version on the <em>One Beyond <a target="_blank" href="https://www.npmjs.com/package/@onebeyond/agnostic-cms-harmonizer)">NPM Registry</a></em>
+Find the latest package version on the <em>One Beyond <a target="_blank" href="https://www.npmjs.com/package/@onebeyond/agnostic-cms-harmonizer">NPM Registry</a></em>
 
 ## [Documentation](https://onebeyond.github.io/agnostic-cms-harmonizer)
 
