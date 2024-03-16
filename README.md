@@ -53,7 +53,7 @@ Enjoy!
 ## Development
 
 ### CLI
-Install [Contentful CLI](https://www.contentful.com/developers/docs/tutorials/cli/import-and-export/#requirements) or alternatively use `npx contentful`
+Install [Contentful CLI](https://www.contentful.com/developers/docs/tutorials/cli/import-and-export/#requirements) or alternatively use `npx contentful-cli`
 
 ### Environment Variables
 
