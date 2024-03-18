@@ -116,7 +116,7 @@ Export the content using the CLI
 contentful space export --config ./__tests__/exports/contentful/config.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
 ```
 
-Ot by using NPX:
+Or by using NPX:
 
 ```bash
 npx contentful-cli space export --config ./__tests__/exports/contentful/config.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
