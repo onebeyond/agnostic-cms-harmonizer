@@ -1,82 +1,162 @@
-# Agnostic CMS harmonizer
+# Agnostic CMS Harmonizer
 
-<p align="center">
-  <a href="https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square" target="_blank"><img src="https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square" alt="all-contributors" /></a>
-</p>
+An agnostic library to handle communication with multiple CMS in an agnostic way.
 
-Library to handle communication with different CMSs in a user-agnostic way.
+![NPM Version](https://img.shields.io/npm/v/%40onebeyond%2Fagnostic-cms-harmonizer)
+![GitHub Release Date](https://img.shields.io/github/release-date/onebeyond/agnostic-cms-harmonizer)
 
-## Contribute
-To contribute to this project, you need to follow the next steps:
+![NPM Downloads](https://img.shields.io/npm/dt/%40onebeyond%2Fagnostic-cms-harmonizer)
+![all contributors](https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square)
+![LICENSE](https://img.shields.io/npm/l/%40onebeyond%2Fagnostic-cms-harmonizer)
+![dependencies](https://img.shields.io/librariesio/github/onebeyond/agnostic-cms-harmonizer)
+![NPM Unpacked Size](https://img.shields.io/npm/unpacked-size/%40onebeyond%2Fagnostic-cms-harmonizer)
 
-### Requirements
+Find the latest package version on the <em>One Beyond <a target="_blank" href="https://www.npmjs.com/package/@onebeyond/agnostic-cms-harmonizer">NPM Registry</a></em>
 
-- [contentful requirements](https://www.contentful.com/developers/docs/tutorials/cli/import-and-export/#requirements)
-- If you don't want to install the contentful CLI you can use the `npx` command to run it without installing it globally, as it's an optional dependency.
+## [Documentation](https://onebeyond.github.io/agnostic-cms-harmonizer)
 
-### Contentful
+### TL;DR
 
-1. You have to create a space in contentful to run the tests.
-2. Follow the instructions [here](https://www.contentful.com/developers/docs/references/authentication/#the-content-delivery-and-preview-api) to create an API key.
+Install the library via `npm`:
 
-### Environment variables
-
-Create a `.env` file in the root of the project with the following content:
-
-```bash 
-CONTENTFUL_ACCESS_TOKEN=your_access_token
-CONTENTFUL_ENVIRONMENT=your_environment
-CONTENTFUL_SPACE=your_space
-CONTENTFUL_ENTRY=your_entry
+```sh
+npm i @onebeyond/agnostic-cms-harmonizer
 ```
 
-### Import dummy content to your space
+Use the harmonized providers:
+
+```ts
+ import { ContentfulClient } from '@onebeyond/agnostic-cms-harmonizer';
+ 
+ const client = new ContentfulClient({
+   accessToken,
+   space,
+   environment,
+ });
+
+ await client.init();
+
+ const entry = await client.getEntry<MyEntry>({ entryId: '123' });
+
+ const collection = await client.getCollection<MyCollection>({ collectionId: '123' });
+```
+
+The library exposes a common interface for multiple CMSs and outputs [harmonized data](https://onebeyond.github.io/agnostic-cms-harmonizer/types/_types_output.HarmonizedOutput.html) instead raw responses.
+
+Each CMS [provider](https://onebeyond.github.io/agnostic-cms-harmonizer/classes/index_abstract.AbstractProvider.html) exposes the [`getEntry`](https://onebeyond.github.io/agnostic-cms-harmonizer/classes/index_abstract.AbstractProvider.html#getEntry) and [`getCollection`](https://onebeyond.github.io/agnostic-cms-harmonizer/classes/index_abstract.AbstractProvider.html#getCollection) methods to request one or multiple entries accordingly.
+
+First, supply the vendor-related configuration parameters to the constructor:
+
+```ts
+const cmsClient = new CmsClient(vendorConfigurationObject)
+```
+
+The client instance _must_ call the `init()` method to configure the provider before attempting to request data from the CMS:
+
+```ts
+await client.init();
+```
+
+Now use the harmonizer methods of the `cmsCLient`.
+
+```ts
+ const entry = await client.getEntry<MyEntry>({ entryId: '123' });
+
+ const collection = await client.getCollection<MyCollection>({ collectionId: '123' });
+```
+
+Enjoy!
+
+## Development
+
+### CLI
+Install [Contentful CLI](https://www.contentful.com/developers/docs/tutorials/cli/import-and-export/#requirements) or alternatively use `npx contentful-cli`
+
+### Environment Variables
+
+ 1. You have to create a space in contentful to run the tests.
+ 2. Follow the instructions [here](https://www.contentful.com/developers/docs/references/authentication/#the-content-delivery-and-preview-api) to create an API key.
+ 3. Setup your `.env` file as follows
+
+ ```
+ CONTENTFUL_ACCESS_TOKEN=your_access_token
+ CONTENTFUL_ENVIRONMENT=your_environment
+ CONTENTFUL_SPACE=your_space
+ CONTENTFUL_ENTRY=your_entry
+ ```
+
+### Testing
+
+#### Import Content
 
 To run the `e2e` tests you need to be authenticated in your contentful account and [import](https://www.contentful.com/developers/docs/tutorials/cli/import-and-export/#importing-content) the dummy content into the space you created before. The content you need to import is located at `__tests__/exports/contentful/agnostic-cms-harmonizer_space.json` and should not be updated.
 
-To log in to your contentful account run the following command and follow the instructions in the terminal:
+Login to Contentful and import test content with the CLI:
 
 ```bash
-# If you have the contenful-cli installed globally
 contenful login
 
-# If you don't have the contenful-cli installed globally
-npx contentful-cli login
+contentful space import --content-file __tests__/exports/contentful/agnostic-cms-harmonizer_space.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
 ```
 
-To import the dummy content run the following command:
+Or by using NPX:
 
 ```bash
-# If you have the contenful-cli installed globally
-contentful space import --content-file __tests__/exports/contentful/agnostic-cms-harmonizer_space.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
+npx contentful-cli login
 
-# If you don't have the contenful-cli installed globally
 npx contentful-cli space import --content-file __tests__/exports/contentful/agnostic-cms-harmonizer_space.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
 ```
 
-There is also a  located at `./__tests__/exports/contentful/config.json` in case you need to [export](https://www.contentful.com/developers/docs/tutorials/cli/import-and-export/#exporting-content) your space's content for any reason. You just need to run the following command:
+#### Export Content
+
+To update the test content you need to [export](https://www.contentful.com/developers/docs/tutorials/cli/import-and-export/#exporting-content) the updated content from Contentful. 
+
+Export the content using the CLI
+```bash
+contentful space export --config ./__tests__/exports/contentful/config.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
+```
+
+Or by using NPX:
 
 ```bash
-# If you have the contenful-cli installed globally
-contentful space export --config ./__tests__/exports/contentful/config.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
-
-# If you don't have the contenful-cli installed globally
 npx contentful-cli space export --config ./__tests__/exports/contentful/config.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
 ```
 
-## Tests
+#### Continous Integration
+The pipeline is configured to use the Contentful space managed by the _**agnostic.cms.harmonizer@proton.me**_ account during the _**E2E**_ tests execution. If the content of these tests needs to be updated in the provider, you must have access to this [vault](https://beyondsecure.onebeyond.cloud/vaults/OB-BpuUbMukgIKDSxGqmypk/secrets), otherwise, you can open an issue referencing the new content exported.
 
-At this point, no further configuration is required to run the _**unit tests**_.
-```bash
+#### Run the test suites
+
+- Run unit tests
+
+```sh
 npm run test
 ```
 
-More of the same, for the _**E2E**_ tests. Here it is crucial to have configured our `.env` and imported the dummy content to our space.
-```bash
+- Run end to end tests
+
+```sh
 npm run test:e2e
 ```
 
-The pipeline is configured to use the Contentful space managed by the _**agnostic.cms.harmonizer@proton.me**_ account during the _**E2E**_ tests execution. If the content of these tests needs to be updated in the provider, you must have access to this [vault](https://beyondsecure.onebeyond.cloud/vaults/OB-BpuUbMukgIKDSxGqmypk/secrets), otherwise, you can open an issue referencing the new content exported.
+### Documentation
+
+The project uses `tsdoc` to generate the technical documentation from the source code.
+
+- Build the documentation
+```sh
+npm run docs:build
+```
+
+- Run in _watch mode_ to look for file changes and update immediately
+```sh
+npm run docs:build:watch
+```
+
+- Serve the build output statically
+```sh
+npm run docs:serve
+```
 
 ## Contributors ✨
 
