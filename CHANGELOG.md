@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/onebeyond/agnostic-cms-harmonizer/compare/v0.2.1...v0.2.2) (2024-03-19)
+
+
+### 📝 Docs
+
+* add missing CONTENTFUL_CONTENT_TYPE env to main README ([#67](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/67)) ([d79311e](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/d79311ef44a7e4e4b373a021ac859f879f68912e))
+
 ## [0.2.1](https://github.com/onebeyond/agnostic-cms-harmonizer/compare/v0.2.0...v0.2.1) (2024-03-19)
 
 
