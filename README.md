@@ -4,6 +4,8 @@ An agnostic library to handle communication with multiple CMS in an agnostic way
 
 ![NPM Version](https://img.shields.io/npm/v/%40onebeyond%2Fagnostic-cms-harmonizer)
 ![GitHub Release Date](https://img.shields.io/github/release-date/onebeyond/agnostic-cms-harmonizer)
+[![maintainability](https://api.codeclimate.com/v1/badges/9c8389517a18ceabc76d/maintainability)](https://codeclimate.com/github/onebeyond/agnostic-cms-harmonizer/maintainability)
+[![Socket](https://socket.dev/api/badge/npm/package/@onebeyond/agnostic-cms-harmonizer)](https://socket.dev/npm/package/@onebeyond/agnostic-cms-harmonizer)
 
 ![NPM Downloads](https://img.shields.io/npm/dt/%40onebeyond%2Fagnostic-cms-harmonizer)
 ![all contributors](https://img.shields.io/github/all-contributors/onebeyond/agnostic-cms-harmonizer?color=ee8449&style=flat-square)
