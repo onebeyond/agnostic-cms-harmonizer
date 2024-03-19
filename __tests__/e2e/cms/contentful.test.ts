@@ -3,6 +3,11 @@ configDotenv();
 
 import { ContentfulClient } from '../../../src/cms/contentful';
 
+console.log('CONTENTFUL_SPACE', process.env.CONTENTFUL_SPACE);
+console.log('CONTENTFUL_ENVIRONMENT', process.env.CONTENTFUL_ENVIRONMENT);
+console.log('CONTENTFUL_ENTRY', process.env.CONTENTFUL_ENTRY);
+console.log('CONTENTFUL_CONTENT_TYPE', process.env.CONTENTFUL_CONTENT_TYPE);
+
 type TestEntryType = {
   booleanInputFieldDefaultTrue: boolean;
   jsonInputField: {
