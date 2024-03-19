@@ -85,6 +85,7 @@ Install [Contentful CLI](https://www.contentful.com/developers/docs/tutorials/cl
  CONTENTFUL_ENVIRONMENT=your_environment
  CONTENTFUL_SPACE=your_space
  CONTENTFUL_ENTRY=your_entry
+ CONTENTFUL_CONTENT_TYPE=your_content+type
  ```
 
 ### Testing
