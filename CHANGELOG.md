@@ -1,5 +1,40 @@
 # Changelog
 
+## [0.2.1](https://github.com/onebeyond/agnostic-cms-harmonizer/compare/v0.2.0...v0.2.1) (2024-03-19)
+
+
+### 🐛 Bug Fixes
+
+* add CONTENTFUL_CONTENT_TYPE to the ci gh action ([#65](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/65)) ([b62ba72](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/b62ba722ad5dfa4c73965ef536fb95ecbab045db))
+
+
+### 🔧 Others
+
+* **deps-dev:** bump @commitlint/cli from 18.6.1 to 19.2.1 ([#64](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/64)) ([fd98515](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/fd98515cd092eebcc16254c16627d64721a3b3f0))
+* **deps-dev:** bump @commitlint/config-conventional ([#63](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/63)) ([d96a8ed](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/d96a8ed34cbc4481b2776c3d6925127e60810f60))
+* **deps-dev:** bump @typescript-eslint/eslint-plugin ([#55](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/55)) ([8acc5ef](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/8acc5efe3273e4d4c7b2574b8ad5601757b45cd3))
+* **deps-dev:** bump @typescript-eslint/parser from 7.0.1 to 7.2.0 ([#56](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/56)) ([42ee62f](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/42ee62fa68d7fdd69d4ec9f8782e5cf89d5f8081))
+* **deps-dev:** bump dotenv from 16.4.4 to 16.4.5 ([#30](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/30)) ([5f67314](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/5f673143c349db77164062feabf97845d602b868))
+* **deps-dev:** bump eslint from 8.56.0 to 8.57.0 ([#62](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/62)) ([fab29ef](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/fab29effaba170981b693a1925d7e5e11e2ca8f2))
+* **deps-dev:** bump typedoc from 0.25.8 to 0.25.12 ([#44](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/44)) ([7485cec](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/7485cecb0ae442d02ed3bed07096bd8a156035a4))
+* **deps-dev:** bump typescript from 5.3.3 to 5.4.2 ([#60](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/60)) ([fa673e9](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/fa673e9837e7fb13e7d22e7fd52e33de04a40dca))
+* **deps:** bump actions/checkout from 4.1.1 to 4.1.2 ([#52](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/52)) ([7455a13](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/7455a1335a2c37fdf01a5376129b0d799747567e))
+* **deps:** bump contentful from 10.6.21 to 10.8.3 ([#54](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/54)) ([03598ea](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/03598eac5029b73359677c0a329b7e1f1476f48e))
+* **deps:** bump follow-redirects from 1.15.5 to 1.15.6 ([#51](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/51)) ([ed2455d](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/ed2455d0fe4e821da39832fffbe982d0b765251d))
+* **deps:** bump github/codeql-action from 3.24.3 to 3.24.7 ([#53](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/53)) ([7cace07](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/7cace0727ba2bf5593ddb3e55952bd8e5e096dfd))
+* **deps:** bump github/codeql-action from 3.24.7 to 3.24.8 ([#61](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/61)) ([8063c8c](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/8063c8cd90906c2fdcf621fb36e279e1c6335264))
+
+
+### 📝 Docs
+
+* add codeclimate and socketdev badges to readme ([#66](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/66)) ([0c2b470](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/0c2b470f591d50f72b36ed89cdd99aae27ac171a))
+* add tl;dr to readme ([#50](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/50)) ([1e298fd](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/1e298fd7b59254090ee1414b2b601b1008677695))
+
+
+### ☁️ CI
+
+* ci improvements ([#58](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/58)) ([02babae](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/02babae176521802915616e6e8092db1796bf278))
+
 ## [0.2.0](https://github.com/onebeyond/agnostic-cms-harmonizer/compare/v0.1.0...v0.2.0) (2024-03-14)
 
 
