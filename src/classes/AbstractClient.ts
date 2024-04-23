@@ -6,7 +6,7 @@ import {
   type ClientParams,
   type AbstractGetEntryParams,
   type AbstractGetCollectionParams,
-} from './@types';
+} from '../@types';
 
 /**
  * The abstract client class that all harmonizer clients should extend.

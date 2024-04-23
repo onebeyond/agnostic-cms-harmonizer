@@ -1,7 +1,8 @@
 // Copyright (c) One Beyond. All rights reserved. Licensed under the MIT license.
 
-import { type HarmonizedOutput, type ClientParams, type ClientInstance } from './@types';
-import { AbstractClient } from './index.abstract';
+import { ClientInstance, ClientParams, HarmonizedOutput } from '../@types';
+
+import { AbstractClient } from './AbstractClient';
 
 const ERROR_MSG = {
   INIT: 'Failed to initialize CMS client!',
