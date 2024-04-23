@@ -1,6 +1,6 @@
 {
   "name": "@onebeyond/agnostic-cms-harmonizer",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Library to manage the communication with any CMS agnostic to the user",
   "repository": {
     "type": "git",
@@ -35,7 +35,8 @@
     "test:e2e": "npm run test -- --config __tests__/e2e/jest.e2e-config.js",
     "test:e2e:watch": "npm run test -- --config __tests__/e2e/jest.e2e-config.js --watchAll",
     "test:e2e:watch:inspect": "node --inspect ./node_modules/jest/bin/jest.js --config __tests__/e2e/jest.e2e-config.js --watchAll --testTimeout 999999",
-    "check-updates": "npx npm-check-updates -u"
+    "check-updates": "npx npm-check-updates -u",
+    "prepublish": "build"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
@@ -59,6 +60,7 @@
     "serve": "^14.2.1",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
+    "tsup": "^8.0.2",
     "typedoc": "^0.25.12",
     "typescript": "^5.3.3"
   },
@@ -68,5 +70,9 @@
   },
   "optionalDependencies": {
     "contentful-cli": "^3.1.43"
-  }
+  },
+  "files": [
+    "build/index.js",
+    "build/index.d.ts"
+  ]
 }
