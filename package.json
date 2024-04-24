@@ -71,8 +71,8 @@
     "contentful-cli": "^3.1.43"
   },
   "files": [
-    "build/index.js",
-    "build/index.d.ts",
-    "src/**/*"
+    "./build/index.js",
+    "./build/index.d.ts",
+    "./build/src/**/*"
   ]
 }
