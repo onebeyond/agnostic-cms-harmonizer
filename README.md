@@ -97,7 +97,7 @@ To run the `e2e` tests you need to be authenticated in your contentful account a
 Login to Contentful and import test content with the CLI:
 
 ```bash
-contenful login
+contentful login
 
 contentful space import --content-file __tests__/exports/contentful/agnostic-cms-harmonizer_space.json --space-id <your-contentful-space-id> --environment-id <your-contentful-environment-id>
 ```
