@@ -11,8 +11,8 @@ import {
   type HarmonizedOutput,
   type ContentfulEntrySkeleton,
 } from '../@types';
-import { AbstractProvider } from '../index.abstract';
-import { HarmonizedClient } from '../index';
+import { AbstractProvider } from '../classes/AbstractClient';
+import { HarmonizedClient } from '../classes/HarmonizedClient';
 
 type ContentfulResource =
   (typeof ContentfulClient.CF_RESOURCE)[keyof typeof ContentfulClient.CF_RESOURCE];

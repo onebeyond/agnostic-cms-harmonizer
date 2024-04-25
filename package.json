@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/onebeyond/agnostic-cms-harmonizer.git"
   },
-  "main": "build/src/index.js",
+  "main": "build/index.js",
   "keywords": [
     "cms"
   ],
@@ -35,7 +35,8 @@
     "test:e2e": "npm run test -- --config __tests__/e2e/jest.e2e-config.js",
     "test:e2e:watch": "npm run test -- --config __tests__/e2e/jest.e2e-config.js --watchAll",
     "test:e2e:watch:inspect": "node --inspect ./node_modules/jest/bin/jest.js --config __tests__/e2e/jest.e2e-config.js --watchAll --testTimeout 999999",
-    "check-updates": "npx npm-check-updates -u"
+    "check-updates": "npx npm-check-updates -u",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
@@ -68,5 +69,10 @@
   },
   "optionalDependencies": {
     "contentful-cli": "^3.1.43"
-  }
+  },
+  "files": [
+    "./build/index.js",
+    "./build/index.d.ts",
+    "./build/src/**/*"
+  ]
 }
