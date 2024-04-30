@@ -1,11 +1,7 @@
 {
-  "name": "example",
+  "name": "e2e-test",
   "version": "1.0.0",
-  "description": "Example to use the library",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Package json for testing purposes",
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }
