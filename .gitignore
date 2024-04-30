@@ -19,3 +19,6 @@ docs/
 
 # Misc
 .DS_Store
+
+#Example
+./__tests__/e2e/import-library/node_modules/
