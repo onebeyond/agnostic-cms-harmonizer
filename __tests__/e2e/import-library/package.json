@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "description": "Package json for testing purposes",
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@onebeyond/agnostic-cms-harmonizer": "file:export/package.tgz"
+  }
 }
