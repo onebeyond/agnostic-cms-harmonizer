@@ -45,5 +45,4 @@ jobs:
 
       - name: 🧪 Run tests
         run: |
-          npm test
-          npm run test:e2e
+          npm test:ci
