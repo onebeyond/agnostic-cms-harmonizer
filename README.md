@@ -15,9 +15,8 @@ An agnostic library to handle communication with multiple CMS in an agnostic way
 
 Find the latest package version on the <em>One Beyond <a target="_blank" href="https://www.npmjs.com/package/@onebeyond/agnostic-cms-harmonizer">NPM Registry</a></em>
 
-## [Documentation](https://onebeyond.github.io/agnostic-cms-harmonizer)
 
-### TL;DR
+## Quick Start
 
 Install the library via `npm`:
 
@@ -160,6 +159,12 @@ npm run docs:build:watch
 ```sh
 npm run docs:serve
 ```
+
+## Community
+
+- We are open to improvements in the <a href="https://github.com/onebeyond/agnostic-cms-harmonizer/issues">issues</a> section.
+- Check the <a href="https://github.com/onebeyond/agnostic-cms-harmonizer/wiki">wiki</a> for more context on the internal workings of this library.
+
 
 ## Contributors ✨
 
