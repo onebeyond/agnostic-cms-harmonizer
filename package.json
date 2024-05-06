@@ -33,8 +33,6 @@
     "pretest:ci": "npm run build",
     "test:ci": "npm run test:unit && npm run test:e2e",
     "test:watch": "npx jest -- --watchAll",
-    "test:pack-library": "npm pack --json --pack-destination ./__tests__/e2e/import-library/export && mv __tests__/e2e/import-library/export/onebeyond-agnostic-cms-harmonizer-$npm_package_version.tgz __tests__/e2e/import-library/export/package.tgz",
-    "test:install-library": "cd __tests__/e2e/import-library/ && npm i --no-save",
     "test:e2e": "npx jest --ci --config __tests__/e2e/jest.e2e-config.js",
     "test:e2e:watch": "npx jest --config __tests__/e2e/jest.e2e-config.js --watchAll",
     "test:e2e:watch:inspect": "node --inspect ./node_modules/jest/bin/jest.js --config __tests__/e2e/jest.e2e-config.js --watchAll --testTimeout 999999",
