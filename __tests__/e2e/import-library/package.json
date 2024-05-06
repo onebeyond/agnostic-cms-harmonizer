@@ -5,6 +5,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@onebeyond/agnostic-cms-harmonizer": "file:export/package.tgz"
+    "@onebeyond/agnostic-cms-harmonizer": "file:../../../build"
   }
 }
