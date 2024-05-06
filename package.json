@@ -30,6 +30,7 @@
     "docs:build:watch": "npm run docs:build -- --watch",
     "docs:serve": "PORT=4000 npx serve --no-clipboard docs",
     "test:unit": "npx jest --ci",
+    "pretest:ci": "npm run build",
     "test:ci": "npm run test:unit && npm run test:e2e",
     "test:watch": "npx jest -- --watchAll",
     "test:pack-library": "npm pack --json --pack-destination ./__tests__/e2e/import-library/export && mv __tests__/e2e/import-library/export/onebeyond-agnostic-cms-harmonizer-$npm_package_version.tgz __tests__/e2e/import-library/export/package.tgz",
