@@ -43,7 +43,7 @@ jobs:
       - name: ⚙️ Install dependencies
         run: |
           npm ci
-          cd __tests__/e2e/import-library/ && npm i --no-save
+          npm --prefix __tests__/e2e/import-library/ i __tests__/e2e/import-library/ --no-save
 
       - name: 🧪 Run tests
         run: |
