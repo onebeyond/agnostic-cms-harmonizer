@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-unresolved
+// @ts-ignore
 import { ContentfulClient } from '@onebeyond/agnostic-cms-harmonizer';
 
 it('should check the imported library is an instance of ContentfulClient', () => {
