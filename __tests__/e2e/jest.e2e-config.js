@@ -3,6 +3,6 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   verbose: true,
-  testRegex: '/cms/.*\\.test\\.ts$',
+  testRegex: '__tests__/e2e/.*\\.test\\.ts$',
   notify: true,
 };

@@ -1,6 +1,6 @@
 /* eslint-disable @stylistic/max-len */
 module.exports = {
-  ignorePatterns: ['docs', 'build'],
+  ignorePatterns: ['docs', 'build', 'import-library'],
   parser: '@typescript-eslint/parser',
   extends: [
     'eslint:recommended',

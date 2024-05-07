@@ -19,3 +19,7 @@ docs/
 
 # Misc
 .DS_Store
+
+# E2e tests artifacts
+./__tests__/e2e/import-library/node_modules/
+./__tests__/e2e/import-library/export/package.tgz
