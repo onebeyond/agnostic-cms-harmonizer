@@ -1,5 +1,40 @@
 # Changelog
 
+## [0.2.3](https://github.com/onebeyond/agnostic-cms-harmonizer/compare/v0.2.2...v0.2.3) (2024-05-16)
+
+
+### 🔧 Others
+
+* **deps-dev:** bump @typescript-eslint/parser from 7.2.0 to 7.8.0 ([#103](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/103)) ([f02a4f6](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/f02a4f66772bfbefe4ccd5f22c834ce1b259f4f4))
+* **deps-dev:** bump npm-check-updates from 16.14.15 to 16.14.20 ([#97](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/97)) ([8cfe2fd](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/8cfe2fd59e48cb5583a3209aba779da233ad8d77))
+* **deps-dev:** bump typescript from 5.4.2 to 5.4.5 ([#82](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/82)) ([b2dbff6](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/b2dbff61cc08db394ff77719d2b39c9fa5774a88))
+* **deps:** bump actions/checkout from 4.1.2 to 4.1.4 ([#93](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/93)) ([a050739](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/a050739ab0356802cee90ee8007e666be17cc4a9))
+* **deps:** bump actions/checkout from 4.1.4 to 4.1.5 ([#107](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/107)) ([538d92d](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/538d92dcb76ef493d6a576edfa9e68b6470591a0))
+* **deps:** bump amannn/action-semantic-pull-request ([#99](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/99)) ([5a0f5df](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/5a0f5df9b0d4a3d2f7faeeb44f441d0374349351))
+* **deps:** bump contentful from 10.10.0 to 10.11.0 ([#110](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/110)) ([6260238](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/62602387b5b2c4e1a8edbc089f80a9bdd018a001))
+* **deps:** bump contentful from 10.8.3 to 10.10.0 ([#108](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/108)) ([c5aad26](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/c5aad26387a0de6d911b5027cc8bbb4159f08f9a))
+* **deps:** bump github/codeql-action from 3.24.8 to 3.25.1 ([#86](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/86)) ([38337b7](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/38337b7ab41f7fbde0e6bd5f20c8ee63a1a17a89))
+* **deps:** bump github/codeql-action from 3.25.1 to 3.25.4 ([#106](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/106)) ([c472444](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/c47244467735d89bbfae0f911da79d4e4444089a))
+* **deps:** bump JamesIves/github-pages-deploy-action from 4.5.0 to 4.6.0 ([#84](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/84)) ([aba693e](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/aba693e5ee6030dbe18d1df88ef0cc8b045afe1f))
+* **deps:** bump step-security/harden-runner from 2.7.0 to 2.7.1 ([#102](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/102)) ([b3b178c](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/b3b178c43ab16ce89cc94b03cd6311de08e00ac5))
+* **deps:** bump tar from 6.2.0 to 6.2.1 ([#81](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/81)) ([0e12d3a](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/0e12d3a61eb730e263de043c05eab02017835e74))
+* wiki reference ([74e5ab2](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/74e5ab26662dd91b18222e1fc8c059fe3135c6c2))
+
+
+### 📝 Docs
+
+* add robertoHeCi as a contributor for code, test, and 2 more ([#95](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/95)) ([51fbb05](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/51fbb057627baf020e29d0f55f2751f99db9b5b3))
+
+
+### 🔄 Code Refactoring
+
+* move the index files to a folder and create a index as a root level to be able to use the library properly ([#90](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/90)) ([4fc2f79](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/4fc2f799a4284dc11177e21d2a17e0bc5a1fe159))
+
+
+### ☁️ CI
+
+* create a e2e test to make sure the export works as expected ([#101](https://github.com/onebeyond/agnostic-cms-harmonizer/issues/101)) ([badc839](https://github.com/onebeyond/agnostic-cms-harmonizer/commit/badc83916565c0610852b02ef8e0df18c7af519e))
+
 ## [0.2.2](https://github.com/onebeyond/agnostic-cms-harmonizer/compare/v0.2.1...v0.2.2) (2024-03-19)
 
 
